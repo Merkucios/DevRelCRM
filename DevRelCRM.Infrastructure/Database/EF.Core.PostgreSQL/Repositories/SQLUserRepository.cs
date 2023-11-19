@@ -1,19 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore;
+using Npgsql.EntityFrameworkCore;
 using DevRelCRM.Core.DomainModels;
 using DevRelCRM.Core.Interfaces.Repositories;
 
-namespace DevRelCRM.Infrastructure.Database.PostgreSQL
+namespace DevRelCRM.Infrastructure.Database.PostgreSQL.Repositories
 {
     public class SQLUserRepository : IUserRepository
     {
-        // TODO: Добавить имплементацию EntityFramework для PostgreSQL
-        
-        public Task CreateUserAsync(User user)
+        private readonly ApplicationDbContext _context;
+
+        public SQLUserRepository(ApplicationDbContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
+        }
+
+        // TODO: Добавить имплементацию EntityFramework для PostgreSQL
+
+        public async Task CreateUserAsync(User user)
+        {
+            _context.Users.Add(user);
+            await _context.SaveChangesAsync();
         }
 
         public Task DeleteUserAsync(int userId)
