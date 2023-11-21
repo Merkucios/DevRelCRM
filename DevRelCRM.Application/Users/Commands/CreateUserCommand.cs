@@ -1,12 +1,16 @@
-﻿namespace DevRelCRM.WebAPI.DataTransferObjects
+﻿using MediatR;
+using System;
+
+namespace DevRelCRM.Application.Users.Commands
 {
-    public class UserDTO
+    public class CreateUserCommand : IRequest<Guid>
     {
         public string Name { get; set; }
         public string Surname { get; set; }
         public string? Patronym { get; set; }
         public string NickName { get; set; }
         public string Email { get; set; }
+        public string Password { get; set; }
         public string? Role { get; set; }
     }
 }

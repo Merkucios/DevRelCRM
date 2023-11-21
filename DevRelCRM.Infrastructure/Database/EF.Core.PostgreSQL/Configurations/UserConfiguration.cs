@@ -8,8 +8,8 @@ namespace DevRelCRM.Infrastructure.Database.PostgreSQL.Configurations
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
-            builder.HasKey(t => t.Id);
-            builder.HasIndex(t => t.Id).IsUnique();
+            builder.HasKey(t => t.UserId);
+            builder.HasIndex(t => t.UserId).IsUnique();
             builder.Property(t => t.Name).HasMaxLength(100).IsRequired();
             builder.Property(t => t.Surname).HasMaxLength(150).IsRequired();
             builder.Property(t => t.Patronym).HasMaxLength(100); 
@@ -18,7 +18,7 @@ namespace DevRelCRM.Infrastructure.Database.PostgreSQL.Configurations
             builder.HasIndex(t => t.Email).IsUnique();
             builder.Property(t => t.Password).HasMaxLength(255).IsRequired(); 
             builder.Property(t => t.Role).HasMaxLength(50); 
-            builder.Property(t => t.DateAdded).IsRequired();
+            builder.Property(t => t.DateCreated).IsRequired();
 
         }
     }

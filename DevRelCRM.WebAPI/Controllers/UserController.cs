@@ -1,8 +1,10 @@
-﻿using AutoMapper;
-using DevRelCRM.Core.DomainModels;
-using DevRelCRM.WebAPI.DataTransferObjects;
-using Microsoft.AspNetCore.Http;
+﻿using DevRelCRM.Core.DomainModels;
+using DevRelCRM.Application.Users.Queries;
 using Microsoft.AspNetCore.Mvc;
+using MediatR;
+using DevRelCRM.Application.Users.Commands;
+using DevRelCRM.WebAPI.DataTransferObjects;
+using AutoMapper;
 
 namespace DevRelCRM.WebAPI.Controllers
 {
@@ -11,17 +13,19 @@ namespace DevRelCRM.WebAPI.Controllers
     public class UserController : Controller
     {
         private readonly IMapper _mapper;
+        private readonly IMediator _mediator;
 
-        public UserController(IMapper mapper)
+        public UserController(IMapper mapper, IMediator mediator)
         {
             _mapper = mapper;
+            _mediator = mediator;
         }
 
         private static List<User> users = new List<User>
         {
             new User
             {
-                Id = Guid.NewGuid(), 
+                UserId = Guid.NewGuid(), 
                 Name = "Test", 
                 Surname = "TestSurname",
                 Patronym = null,
@@ -29,16 +33,32 @@ namespace DevRelCRM.WebAPI.Controllers
                 Email = "test@devrelcrm.com",
                 Password = "passwrod",
                 Role = null,
-                DateAdded = DateTime.Now,
+                DateCreated = DateTime.Now,
 
             }
 
         };
 
-        [HttpGet]
-        public async Task<ActionResult<List<User>>> GetUsers()
+        [HttpGet("{userId}")]
+        public async Task<ActionResult<UserDetailsVm>> GetUserDetails(Guid userId)
         {
-            // Application Commands
+            var query = new GetUserDetailsQuery { UserId = userId };
+            var userDetails = await _mediator.Send(query);
+
+            if (userDetails == null)
+            {
+                return NotFound();
+            }
+            return Ok(userDetails);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateUser([FromBody] CreateUserDTO createUserDTO)
+        {
+            var command = _mapper.Map<CreateUserCommand>(createUserDTO);
+            var userId = await _mediator.Send(command);
+            return Ok(userId);
+            
         }
     }
 }

@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DevRelCRM.Application\DevRelCRM.Application.csproj" />
     <ProjectReference Include="..\DevRelCRM.Core\DevRelCRM.Core.csproj" />
     <ProjectReference Include="..\DevRelCRM.Infrastructure\DevRelCRM.Infrastructure.csproj" />
   </ItemGroup>

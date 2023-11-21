@@ -1,9 +1,14 @@
-using DevRelCRM.WebAPI.Mappings;
 using DevRelCRM.Infrastructure.Database.PostgreSQL;
+using DevRelCRM.Core.DomainModels;
 using DevRelCRM.Core.Interfaces.Repositories;
 using DevRelCRM.Infrastructure.Database.PostgreSQL.Repositories;
+using DevRelCRM.Application.Mappings;
 using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
+using Microsoft.Extensions.DependencyInjection;
+using DevRelCRM.Application;
+using DevRelCRM.Application.Users.Queries;
 
 namespace DevRelCRM.WebAPI
 {
@@ -24,11 +29,23 @@ namespace DevRelCRM.WebAPI
                     Description = "RESTful API для взаимодействия клиентской части с серверной"}
             ));
 
+
+            // Dependency Injecttion EF.PostgreSQL
             builder.Services.AddDbContext<ApplicationDbContext>(
                 o => o.UseNpgsql(builder.Configuration.GetConnectionString("DevRelCRM_DB")));
 
-            builder.Services.AddAutoMapper(typeof(AssemblyMappingProfile));
 
+            // Dependency Injecttion AutoMapper
+            builder.Services.AddAutoMapper(config =>
+            {
+                config.AddProfile(new AssemblyMappingProfile(Assembly.GetExecutingAssembly()));
+                config.AddProfile(new AssemblyMappingProfile(typeof(ApplicationDbContext).Assembly));
+                config.AddProfile(new AssemblyMappingProfile(typeof(UserDetailsVm).Assembly));
+            });
+
+
+            // Dependency Injecttion MediatR
+            builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(AssemblyMappingProfile).Assembly));
 
             // Dependency Injecttion
             builder.Services.AddScoped<IUserRepository, SQLUserRepository>();

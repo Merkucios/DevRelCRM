@@ -9,7 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevRelCRM.Core", "DevRelCRM
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevRelCRM.Infrastructure", "DevRelCRM.Infrastructure\DevRelCRM.Infrastructure.csproj", "{2CA13D36-53F3-47A5-BEBE-8D673BD9679E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevRelCRM.Application", "DevRelCRM.Application\DevRelCRM.Application.csproj", "{A3511917-06F7-4C99-AFCA-391554F79817}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevRelCRM.Application", "DevRelCRM.Application\DevRelCRM.Application.csproj", "{A3511917-06F7-4C99-AFCA-391554F79817}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{5512C1DD-704D-4CD2-903B-1A24F1191B29}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevRelCRM.Application.UnitTests", "DevRelCRM.Application.UnitTests\DevRelCRM.Application.UnitTests.csproj", "{20FD57B1-1C05-41BE-92EA-F68535D67383}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,9 +37,16 @@ Global
 		{A3511917-06F7-4C99-AFCA-391554F79817}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A3511917-06F7-4C99-AFCA-391554F79817}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A3511917-06F7-4C99-AFCA-391554F79817}.Release|Any CPU.Build.0 = Release|Any CPU
+		{20FD57B1-1C05-41BE-92EA-F68535D67383}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20FD57B1-1C05-41BE-92EA-F68535D67383}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20FD57B1-1C05-41BE-92EA-F68535D67383}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20FD57B1-1C05-41BE-92EA-F68535D67383}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{20FD57B1-1C05-41BE-92EA-F68535D67383} = {5512C1DD-704D-4CD2-903B-1A24F1191B29}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E9B0DD58-2F11-44E8-B9A8-50E4252078B1}

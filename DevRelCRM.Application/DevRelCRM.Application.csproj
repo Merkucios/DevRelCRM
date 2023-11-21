@@ -7,7 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
+    <PackageReference Include="FluentValidation" Version="11.8.0" />
     <PackageReference Include="MediatR" Version="12.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DevRelCRM.Core\DevRelCRM.Core.csproj" />
+    <ProjectReference Include="..\DevRelCRM.Infrastructure\DevRelCRM.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

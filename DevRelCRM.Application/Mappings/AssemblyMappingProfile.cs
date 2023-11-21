@@ -1,11 +1,12 @@
 ﻿using AutoMapper;
 using System.Reflection;
 using System.Linq;
+using DevRelCRM.Infrastructure.Database.PostgreSQL;
 
-namespace DevRelCRM.WebAPI.Mappings
+namespace DevRelCRM.Application.Mappings
 {
     public class AssemblyMappingProfile : Profile
-    {
+    { 
         public AssemblyMappingProfile(Assembly assembly) =>
             ApplyMappingsFromAssembly(assembly);
 

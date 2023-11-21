@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 
-namespace DevRelCRM.WebAPI.Mappings
+namespace DevRelCRM.Application.Mappings
 {
     public interface IMapWith<T>
     {

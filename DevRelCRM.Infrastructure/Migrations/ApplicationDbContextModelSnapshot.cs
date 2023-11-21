@@ -24,11 +24,11 @@ namespace DevRelCRM.Infrastructure.Migrations
 
             modelBuilder.Entity("DevRelCRM.Core.DomainModels.User", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("UserId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime>("DateAdded")
+                    b.Property<DateTime>("DateCreated")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Email")
@@ -64,12 +64,12 @@ namespace DevRelCRM.Infrastructure.Migrations
                         .HasMaxLength(150)
                         .HasColumnType("character varying(150)");
 
-                    b.HasKey("Id");
+                    b.HasKey("UserId");
 
                     b.HasIndex("Email")
                         .IsUnique();
 
-                    b.HasIndex("Id")
+                    b.HasIndex("UserId")
                         .IsUnique();
 
                     b.ToTable("Users");

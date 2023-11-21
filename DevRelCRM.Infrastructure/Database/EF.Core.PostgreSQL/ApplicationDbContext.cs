@@ -7,9 +7,7 @@ namespace DevRelCRM.Infrastructure.Database.PostgreSQL
     public class ApplicationDbContext : DbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
-        {}
-
-        public DbSet<User> Users { get; set; }
+        { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -19,5 +17,7 @@ namespace DevRelCRM.Infrastructure.Database.PostgreSQL
             base.OnModelCreating(modelBuilder);
 
         }
+
+        public DbSet<User> Users { get; set; }
     }
 }
