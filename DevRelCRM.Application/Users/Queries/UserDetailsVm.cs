@@ -4,8 +4,10 @@ using DevRelCRM.Core.DomainModels;
 
 namespace DevRelCRM.Application.Users.Queries
 {
+    // ViewModel для отображения деталей пользователя
     public class UserDetailsVm : IMapWith<User>
     {
+        // Свойства, представляющие детали пользователя
         public Guid UserId { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
@@ -16,8 +18,10 @@ namespace DevRelCRM.Application.Users.Queries
 
         public DateTime DateCreated { get; set; }
 
+        // Метод маппинга, определенный в интерфейсе IMapWith
         public void Mapping(Profile profile)
         {
+            // Определяем маппинг между типами User и UserDetailsVm
             profile.CreateMap<User, UserDetailsVm>()
                 .ForMember(userVm => userVm.UserId, opt => opt.MapFrom(user => user.UserId))
                 .ForMember(userVm => userVm.Name, opt => opt.MapFrom(user => user.Name))

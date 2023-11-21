@@ -4,6 +4,10 @@ using DevRelCRM.Application.Users.Commands;
 
 namespace DevRelCRM.WebAPI.DataTransferObjects
 {
+    /// <summary>
+    /// Data Transfer Object (DTO) для создания нового пользователя.
+    /// Реализует интерфейс IMapWith для маппинга с объектом CreateUserCommand.
+    /// </summary>
     public class CreateUserDTO : IMapWith<CreateUserCommand>
     {
         public string Name { get; set; }
@@ -14,6 +18,10 @@ namespace DevRelCRM.WebAPI.DataTransferObjects
         public string Password { get; set; }
         public string? Role { get; set; }
 
+        /// <summary>
+        /// Метод маппинга объекта CreateUserDTO на CreateUserCommand с использованием AutoMapper.
+        /// </summary>
+        /// <param name="profile">Профиль AutoMapper, используемый для создания маппинга.</param>
         public void Mapping(Profile profile)
         {
             profile.CreateMap<CreateUserDTO, CreateUserCommand>()

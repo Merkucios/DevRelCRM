@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace DevRelCRM.Core.DomainModels
+﻿namespace DevRelCRM.Core.DomainModels
 {
+    // Модель данных, представляющая пользователя в системе
     public class User
     {
         public Guid UserId { get; set; }

@@ -1,11 +1,13 @@
 ﻿using AutoMapper;
 using DevRelCRM.Infrastructure.Database.PostgreSQL;
-using DevRelCRM.Core.DomainModels;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace DevRelCRM.Application.Users.Queries
 {
+    // Обработчик запроса для получения деталей пользователя
+        // IRequestHandler<GetUserDetailsQuery, UserDetailsVm>
+            // <Тип обрабатываемого запроса, тип ответа от обработчика>
     public class GetUserDetailsQueryHandler 
         :IRequestHandler<GetUserDetailsQuery, UserDetailsVm>
 
@@ -21,10 +23,12 @@ namespace DevRelCRM.Application.Users.Queries
 
         public async Task<UserDetailsVm> Handle(GetUserDetailsQuery request, CancellationToken cancellationToken)
         {
+            // Получаем пользователя из базы данных по указанному идентификатору
             var entity = await _context.Users
                 .FirstOrDefaultAsync(user =>
                 user.UserId == request.UserId);
 
+            // Проверяем, найден ли пользователь
             if (entity == null || entity.UserId != request.UserId)
             {
                 // Сделать NotFoundException.cs
@@ -32,6 +36,7 @@ namespace DevRelCRM.Application.Users.Queries
 
             }
 
+            // Отображаем детали пользователя на объект UserDetailsVm с использованием AutoMapper
             return _mapper.Map<UserDetailsVm>(entity);
         }
     }

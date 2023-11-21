@@ -1,14 +1,13 @@
 using DevRelCRM.Infrastructure.Database.PostgreSQL;
-using DevRelCRM.Core.DomainModels;
 using DevRelCRM.Core.Interfaces.Repositories;
 using DevRelCRM.Infrastructure.Database.PostgreSQL.Repositories;
 using DevRelCRM.Application.Mappings;
 using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
-using Microsoft.Extensions.DependencyInjection;
-using DevRelCRM.Application;
 using DevRelCRM.Application.Users.Queries;
+using DevRelCRM.Core.Interfaces.Services;
+using DevRelCRM.Core.DomainServices;
 
 namespace DevRelCRM.WebAPI
 {
@@ -18,10 +17,13 @@ namespace DevRelCRM.WebAPI
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
-
+            // Добавление контроллеров
             builder.Services.AddControllers();
+
+            // Добавление поддержки API Explorer для Endpoints
             builder.Services.AddEndpointsApiExplorer();
+
+            // Добавление поддержки Swagger для документации API
             builder.Services.AddSwaggerGen(c =>
                 c.SwaggerDoc("v1", new OpenApiInfo { 
                     Title = "DevRelCRM.WebAPI", 
@@ -30,7 +32,7 @@ namespace DevRelCRM.WebAPI
             ));
 
 
-            // Dependency Injecttion EF.PostgreSQL
+            // Dependency Injection для Entity Framework с использованием PostgreSQL
             builder.Services.AddDbContext<ApplicationDbContext>(
                 o => o.UseNpgsql(builder.Configuration.GetConnectionString("DevRelCRM_DB")));
 
@@ -38,6 +40,7 @@ namespace DevRelCRM.WebAPI
             // Dependency Injecttion AutoMapper
             builder.Services.AddAutoMapper(config =>
             {
+                // Добавление профилей маппинга из сборок приложения
                 config.AddProfile(new AssemblyMappingProfile(Assembly.GetExecutingAssembly()));
                 config.AddProfile(new AssemblyMappingProfile(typeof(ApplicationDbContext).Assembly));
                 config.AddProfile(new AssemblyMappingProfile(typeof(UserDetailsVm).Assembly));
@@ -47,12 +50,13 @@ namespace DevRelCRM.WebAPI
             // Dependency Injecttion MediatR
             builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(AssemblyMappingProfile).Assembly));
 
-            // Dependency Injecttion
+            // Dependency Injection для репозитория и сервиса пользователя
             builder.Services.AddScoped<IUserRepository, SQLUserRepository>();
+            builder.Services.AddScoped<IUserService, UserService>();
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
+            // Включение Swagger в режиме разработки
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
@@ -63,8 +67,13 @@ namespace DevRelCRM.WebAPI
                 });
             }
 
+            // Включение HTTPS-перенаправления  
             app.UseHttpsRedirection();
+
+            // Включение авторизации
             app.UseAuthorization();
+
+            // Конфигурация маршрутов для контроллеров
             app.MapControllers();
 
             app.Run();

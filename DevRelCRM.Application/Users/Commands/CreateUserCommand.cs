@@ -1,10 +1,11 @@
 ﻿using MediatR;
-using System;
 
 namespace DevRelCRM.Application.Users.Commands
 {
+    // Команда для создания нового пользователя (CQRS)
     public class CreateUserCommand : IRequest<Guid>
     {
+        // Свойства, представляющие данные нового пользователя
         public string Name { get; set; }
         public string Surname { get; set; }
         public string? Patronym { get; set; }

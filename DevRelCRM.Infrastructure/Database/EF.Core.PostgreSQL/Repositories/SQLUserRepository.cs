@@ -5,18 +5,20 @@ using DevRelCRM.Core.Interfaces.Repositories;
 
 namespace DevRelCRM.Infrastructure.Database.PostgreSQL.Repositories
 {
+    // Реализация репозитория пользователей для PostgreSQL базы данных
+        // Используя DI можем перейти на любую другую СУБД или ORM
+            // Главное наследовать поведение IUserRepository
     public class SQLUserRepository : IUserRepository
     {
         private readonly ApplicationDbContext _context;
 
+        // Конструктор, принимающий контекст базы данных в качестве зависимости
         public SQLUserRepository(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // TODO: Добавить имплементацию EntityFramework для PostgreSQL
-
-        public async Task CreateUserAsync(User user)
+        public async Task CreateUserAsync(User user, CancellationToken cancellation)
         {
             _context.Users.Add(user);
             await _context.SaveChangesAsync();

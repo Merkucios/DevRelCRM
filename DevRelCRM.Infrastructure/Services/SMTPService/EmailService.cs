@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-/* Добавить MailKit для SMTP-сервера
+﻿/* Добавить MailKit для SMTP-сервера
  * Создать почту для проекта на yandex.ru
  * smtp.yandxex.ru (SSL) порт 465 */
 

@@ -4,8 +4,10 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace DevRelCRM.Infrastructure.Database.PostgreSQL.Configurations
 {
+    // Конфигурация сущности User для Entity Framework Core
     public class UserConfiguration : IEntityTypeConfiguration<User>
     {
+        // Метод для настройки сущности User в базе данных
         public void Configure(EntityTypeBuilder<User> builder)
         {
             builder.HasKey(t => t.UserId);
