@@ -1,9 +1,10 @@
 ﻿using DevRelCRM.Application.Users.Queries;
 using Microsoft.AspNetCore.Mvc;
 using MediatR;
-using DevRelCRM.Application.Users.Commands;
 using DevRelCRM.WebAPI.DataTransferObjects;
 using AutoMapper;
+using DevRelCRM.Application.Users.Commands.CreateUser;
+using DevRelCRM.Application.Users.Commands.DeleteUser;
 
 namespace DevRelCRM.WebAPI.Controllers
 {
@@ -36,6 +37,8 @@ namespace DevRelCRM.WebAPI.Controllers
         /// <param name="userId">Идентификатор пользователя.</param>
         /// <returns>Детали пользователя в формате UserDetailsVm.</returns>
         [HttpGet("{userId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<UserDetailsVm>> GetUserDetails(Guid userId)
         {
             var query = new GetUserDetailsQuery { UserId = userId };
@@ -49,16 +52,38 @@ namespace DevRelCRM.WebAPI.Controllers
         }
 
         /// <summary>
-        /// Создать нового пользователя.
+        /// Создание нового пользователя.
         /// </summary>
         /// <param name="createUserDTO">DTO для создания пользователя.</param>
         /// <returns>Идентификатор нового пользователя.</returns>
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> CreateUser([FromBody] CreateUserDTO createUserDTO)
         {
             var command = _mapper.Map<CreateUserCommand>(createUserDTO);
             var userId = await _mediator.Send(command);
             return Ok(userId);
+
+        }
+
+        //[HttpPut]
+        //public async Task<IActionResult> UpdateUser(Guid userId)
+        //{
+
+        //}
+
+        [HttpDelete]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> DeleteUser(Guid userId)
+        {
+            var command = new DeleteUserCommand
+            {
+                UserId = userId
+            };
+            
+            await _mediator.Send(command);
+            return NoContent();
             
         }
     }

@@ -23,7 +23,7 @@ namespace DevRelCRM.Core.DomainServices
         }
         
         // Удаляет пользователя асинхронно
-        public async Task DeleteUserAsync(int userId)
+        public async Task DeleteUserAsync(Guid userId)
         {
             await _userRepository.DeleteUserAsync(userId);
         }
@@ -35,9 +35,9 @@ namespace DevRelCRM.Core.DomainServices
         }
 
         // Получает пользователя по его идентификатору асинхронно
-        public async Task<User> GetUserByIdAsync(int userId)
+        public async Task<User> GetUserByIdAsync(Guid userId, CancellationToken cancellationToken)
         {
-            return await _userRepository.GetUserByIdAsync(userId);
+            return await _userRepository.GetUserByIdAsync(userId, cancellationToken);
         }
 
         // Получает коллекцию всех пользователей асинхронно
@@ -47,9 +47,9 @@ namespace DevRelCRM.Core.DomainServices
         }
 
         // Обновляет информацию о пользователе асинхронно
-        public async Task UpdateUserAsync(User user)
+        public async Task UpdateUserAsync(Guid userId, Action<User> updateAction)
         {
-            await _userRepository.UpdateUserAsync(user);
+            await _userRepository.UpdateUserAsync(userId, updateAction);
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace DevRelCRM.Application.Users.Commands
+namespace DevRelCRM.Application.Users.Commands.CreateUser
 {
     // Команда для создания нового пользователя (CQRS)
     public class CreateUserCommand : IRequest<Guid>

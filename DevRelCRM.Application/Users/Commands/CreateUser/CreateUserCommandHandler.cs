@@ -3,24 +3,22 @@ using DevRelCRM.Core.Interfaces.Services;
 using DevRelCRM.Infrastructure.Database.PostgreSQL;
 using MediatR;
 
-namespace DevRelCRM.Application.Users.Commands
+namespace DevRelCRM.Application.Users.Commands.CreateUser
 {
     // Обработчик команды для создания нового пользователя
-    public class CreateUserCommandHandler: 
-        IRequestHandler<CreateUserCommand, Guid> 
+    public class CreateUserCommandHandler :
+        IRequestHandler<CreateUserCommand, Guid>
     {
-        private readonly ApplicationDbContext _context;
         private readonly IUserService _userService;
 
         // Конструктор, принимающий контекст базы данных EntityFramework
         public CreateUserCommandHandler(ApplicationDbContext context, IUserService userService)
         {
-            _context = context;
             _userService = userService;
         }
-        
+
         // Метод для обработки команды
-        public async Task<Guid> Handle(CreateUserCommand request,  CancellationToken cancellationToken)
+        public async Task<Guid> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
             // Создаем нового пользователя с данными из команды
             var user = new User

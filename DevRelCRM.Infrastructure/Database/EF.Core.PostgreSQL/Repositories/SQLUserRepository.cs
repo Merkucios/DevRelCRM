@@ -24,9 +24,13 @@ namespace DevRelCRM.Infrastructure.Database.PostgreSQL.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public Task DeleteUserAsync(int userId)
+        public async Task DeleteUserAsync(Guid userId)
         {
-            throw new NotImplementedException();
+            var user = await GetUserByIdAsync(userId, cancellationToken: CancellationToken.None);
+
+            _context.Users.Remove(user);
+            await _context.SaveChangesAsync();
+            
         }
 
         public Task<User> GetByNameAsync(string nickName)
@@ -34,9 +38,17 @@ namespace DevRelCRM.Infrastructure.Database.PostgreSQL.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<User> GetUserByIdAsync(int userId)
+        public async Task<User> GetUserByIdAsync(Guid userId, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            var entity = await _context.Users
+                .FindAsync(userId, cancellationToken);
+
+            if (entity == null || entity.UserId != userId)
+            {
+                throw new Exception($"Не найдена запись в БД с {userId}");
+            }
+
+            return entity;
         }
 
         public Task<IEnumerable<User>> GetUsersAsync()
@@ -44,9 +56,12 @@ namespace DevRelCRM.Infrastructure.Database.PostgreSQL.Repositories
             throw new NotImplementedException();
         }
 
-        public Task UpdateUserAsync(User user)
+        public async Task UpdateUserAsync(Guid userId, Action<User> updateAction)        
         {
-            throw new NotImplementedException();
+            User? user = await GetUserByIdAsync(userId, cancellationToken: CancellationToken.None);
+
+            updateAction?.Invoke(user);
+            await _context.SaveChangesAsync();
         }
     }
 }

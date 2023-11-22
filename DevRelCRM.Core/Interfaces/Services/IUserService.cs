@@ -6,11 +6,11 @@ namespace DevRelCRM.Core.Interfaces.Services
     public interface IUserService
     {
         public Task CreateUserAsync(User user, CancellationToken cancellationToken);
-        public Task UpdateUserAsync(User user);
-        public Task<User> GetUserByIdAsync(int userId);
+        public Task UpdateUserAsync(Guid userId, Action<User> updateAction); 
+        public Task<User> GetUserByIdAsync(Guid userId, CancellationToken cancellationToken);
         public Task<IEnumerable<User>> GetUsersAsync();
         public Task<User> GetByNameAsync(string nickName);
-        public Task DeleteUserAsync(int userId);
+        public Task DeleteUserAsync(Guid userId);
 
         // Можно добавлять бизнес-логику для поведения
 

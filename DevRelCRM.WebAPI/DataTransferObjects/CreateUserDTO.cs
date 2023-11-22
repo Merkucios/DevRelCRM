@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using DevRelCRM.Application.Mappings;
-using DevRelCRM.Application.Users.Commands;
+using DevRelCRM.Application.Users.Commands.CreateUser;
 
 namespace DevRelCRM.WebAPI.DataTransferObjects
 {
@@ -15,7 +15,6 @@ namespace DevRelCRM.WebAPI.DataTransferObjects
         public string? Patronym { get; set; }
         public string NickName { get; set; }
         public string Email { get; set; }
-        public string Password { get; set; }
         public string? Role { get; set; }
 
         /// <summary>
@@ -35,8 +34,6 @@ namespace DevRelCRM.WebAPI.DataTransferObjects
                     opt => opt.MapFrom(userDto => userDto.NickName))
                 .ForMember(userCommand => userCommand.Email,
                     opt => opt.MapFrom(userDto => userDto.Email))
-                .ForMember(userCommand => userCommand.Password,
-                    opt => opt.MapFrom(userDto => userDto.Password))
                 .ForMember(userCommand => userCommand.Role,
                     opt => opt.MapFrom(userDto => userDto.Role));
 
