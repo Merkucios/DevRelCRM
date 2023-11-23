@@ -27,6 +27,7 @@ namespace DevRelCRM.Application.Users.Commands.CreateUser
                 Name = request.Name,
                 Surname = request.Surname,
                 Patronym = request.Patronym,
+                Gender = request.Gender,
                 NickName = request.NickName,
                 Email = request.Email,
                 Password = request.Password,

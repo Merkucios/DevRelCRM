@@ -9,6 +9,7 @@ namespace DevRelCRM.WebAPI.DataTransferObjects
         public string Name { get; set; }
         public string Surname { get; set; }
         public string? Patronym { get; set; }
+        public string Gender { get; set; }
         public string? Role { get; set; }
 
         public void Mapping(Profile profile)
@@ -17,6 +18,7 @@ namespace DevRelCRM.WebAPI.DataTransferObjects
                 .ForMember(userUpdate => userUpdate.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(userUpdate => userUpdate.Surname, opt => opt.MapFrom(src => src.Surname))
                 .ForMember(userUpdate => userUpdate.Patronym, opt => opt.MapFrom(src => src.Patronym))
+                .ForMember(userUpdate => userUpdate.Gender, opt => opt.MapFrom(src => src.Gender))
                 .ForMember(userUpdate => userUpdate.Role, opt => opt.MapFrom(src => src.Role));
         }
     }

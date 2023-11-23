@@ -19,6 +19,7 @@ namespace DevRelCRM.Application.Users.Commands.UpdateUser
                 entity.Name = request.Name;
                 entity.Surname = request.Surname;
                 entity.Patronym = request.Patronym;
+                entity.Gender = request.Gender;
                 entity.Password = request.Password;
                 entity.Role = request.Role;
             });
