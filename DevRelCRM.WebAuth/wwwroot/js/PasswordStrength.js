@@ -1,7 +1,11 @@
-﻿// Ожидаем, пока DOM полностью загрузится
+﻿// Эту логику можно скрыть от пользователя используя сокеты, шифр, серверную часть
+    // На базовой имплементации оставляем так
+
+// Ожидаем, пока DOM полностью загрузится
 $(document).ready(function () {
     // Привязываем обработчик события ввода текста к полю с паролем
     $('#password').on('input', function () {
+
         // Вызываем функцию для проверки силы пароля при каждом вводе
         validatePasswordStrength($(this).val());
     });
@@ -70,7 +74,7 @@ $(document).ready(function () {
             }
 
             var iconClass = conditionMet ? "text-success" : "text-danger";
-            var icon = (i < strength) ? icons[0] : icons[1];
+            var icon = conditionMet ? icons[0] : icons[1];
 
             message += "<li class='" + iconClass + "'><i class='bi " + icon + "'></i> " + messages[i] + "</li>";
         }

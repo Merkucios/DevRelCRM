@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DevRelCRM.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231119154344_Init")]
-    partial class Init
+    [Migration("20231124094541_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -38,6 +38,10 @@ namespace DevRelCRM.Infrastructure.Migrations
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
+
+                    b.Property<string>("Gender")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -70,6 +74,9 @@ namespace DevRelCRM.Infrastructure.Migrations
                     b.HasKey("UserId");
 
                     b.HasIndex("Email")
+                        .IsUnique();
+
+                    b.HasIndex("NickName")
                         .IsUnique();
 
                     b.HasIndex("UserId")

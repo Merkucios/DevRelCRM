@@ -1,8 +1,20 @@
-using DevRelCRM.Core.Constants;
+п»їusing DevRelCRM.Core.Constants;
+using DevRelCRM.Application.Mappings;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using DevRelCRM.Core.DomainServices;
+using DevRelCRM.Core.Interfaces.Repositories;
+using DevRelCRM.Core.Interfaces.Services;
+using DevRelCRM.Infrastructure.Database.PostgreSQL.Repositories;
+using DevRelCRM.Infrastructure.Database.PostgreSQL;
+using Microsoft.EntityFrameworkCore;
+using System.Reflection;
+using DevRelCRM.Application.Users.Queries;
+using DevRelCRM.Application.Users.Commands.CreateUser;
+using FluentValidation;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DevRelCRM.WebAuth
 {
@@ -12,15 +24,43 @@ namespace DevRelCRM.WebAuth
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Получаем настройки JWT из конфигурации
+            // РџРѕР»СѓС‡Р°РµРј РЅР°СЃС‚СЂРѕР№РєРё JWT РёР· РєРѕРЅС„РёРіСѓСЂР°С†РёРё
             var jwtIssuer = builder.Configuration["JwtSettings:Issuer"];
             var jwtAudience = builder.Configuration["JwtSettings:Audience"];
             var jwtSecretKey = builder.Configuration["JwtSettings:SecretKey"];
 
-            // Добавляем сервисы для Razor Pages
+            // Dependency Injecttion AutoMapper
+            builder.Services.AddAutoMapper(config =>
+            {
+                // Р”РѕР±Р°РІР»РµРЅРёРµ РїСЂРѕС„РёР»РµР№ РјР°РїРїРёРЅРіР° РёР· СЃР±РѕСЂРѕРє РїСЂРёР»РѕР¶РµРЅРёСЏ
+                config.AddProfile(new AssemblyMappingProfile(Assembly.GetExecutingAssembly()));
+                config.AddProfile(new AssemblyMappingProfile(typeof(ApplicationDbContext).Assembly));
+                config.AddProfile(new AssemblyMappingProfile(typeof(UserDetailsVm).Assembly));
+            });
+
+            // Р”РѕР±Р°РІР»СЏРµРј СЃРµСЂРІРёСЃС‹ РґР»СЏ Razor Pages
             builder.Services.AddRazorPages();
 
-            // Конфигурируем аутентификацию: используем аутентификацию по куки и JWT
+            // Dependency Injection РґР»СЏ Entity Framework СЃ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµРј PostgreSQL
+            builder.Services.AddDbContext<ApplicationDbContext>(
+                o => o.UseNpgsql(builder.Configuration.GetConnectionString("DevRelCRM_DB")));
+
+
+            // Dependency Injecttion MediatR
+            builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(AssemblyMappingProfile).Assembly));
+
+            // Dependency Injection РґР»СЏ СЂРµРїРѕР·РёС‚РѕСЂРёСЏ Рё СЃРµСЂРІРёСЃР° РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
+            builder.Services.AddScoped<IUserRepository, SQLUserRepository>();
+            builder.Services.AddScoped<IUserService, UserService>();
+
+            builder.Services.AddTransient<IValidator<CreateUserCommand>, CreateUserCommandValidator>();
+
+            builder.Services.AddRazorPages().AddMvcOptions(options =>
+            {
+                options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+            });
+
+            // РљРѕРЅС„РёРіСѓСЂРёСЂСѓРµРј Р°СѓС‚РµРЅС‚РёС„РёРєР°С†РёСЋ: РёСЃРїРѕР»СЊР·СѓРµРј Р°СѓС‚РµРЅС‚РёС„РёРєР°С†РёСЋ РїРѕ РєСѓРєРё Рё JWT
             builder.Services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
@@ -30,7 +70,7 @@ namespace DevRelCRM.WebAuth
             .AddCookie()
             .AddJwtBearer(options =>
             {
-                // Настройки проверки токена JWT
+                // РќР°СЃС‚СЂРѕР№РєРё РїСЂРѕРІРµСЂРєРё С‚РѕРєРµРЅР° JWT
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuer = true,
@@ -43,7 +83,7 @@ namespace DevRelCRM.WebAuth
                 };
             });
 
-            // Добавляем политики авторизации для ролей приложения
+            // Р”РѕР±Р°РІР»СЏРµРј РїРѕР»РёС‚РёРєРё Р°РІС‚РѕСЂРёР·Р°С†РёРё РґР»СЏ СЂРѕР»РµР№ РїСЂРёР»РѕР¶РµРЅРёСЏ
             builder.Services.AddAuthorization(options =>
             {
                 options.AddPolicy($"{nameof(Roles.Programmer)}Policy", policy => policy.RequireRole(nameof(Roles.Programmer)));
@@ -53,11 +93,11 @@ namespace DevRelCRM.WebAuth
 
             var app = builder.Build();
 
-            // Конфигурируем конвейер HTTP-запросов
+            // РљРѕРЅС„РёРіСѓСЂРёСЂСѓРµРј РєРѕРЅРІРµР№РµСЂ HTTP-Р·Р°РїСЂРѕСЃРѕРІ
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Error");
-                // Значение HSTS по умолчанию — 30 дней. Можно изменить для продакшн версии https://aka.ms/aspnetcore-hsts.
+                // Р—РЅР°С‡РµРЅРёРµ HSTS РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ вЂ” 30 РґРЅРµР№. РњРѕР¶РЅРѕ РёР·РјРµРЅРёС‚СЊ РґР»СЏ РїСЂРѕРґР°РєС€РЅ РІРµСЂСЃРёРё https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 

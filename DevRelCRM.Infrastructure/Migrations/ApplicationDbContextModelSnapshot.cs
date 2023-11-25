@@ -36,6 +36,10 @@ namespace DevRelCRM.Infrastructure.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
 
+                    b.Property<string>("Gender")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -67,6 +71,9 @@ namespace DevRelCRM.Infrastructure.Migrations
                     b.HasKey("UserId");
 
                     b.HasIndex("Email")
+                        .IsUnique();
+
+                    b.HasIndex("NickName")
                         .IsUnique();
 
                     b.HasIndex("UserId")

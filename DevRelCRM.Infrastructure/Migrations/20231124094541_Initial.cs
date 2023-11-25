@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DevRelCRM.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class Init : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -19,6 +19,7 @@ namespace DevRelCRM.Infrastructure.Migrations
                     Name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     Surname = table.Column<string>(type: "character varying(150)", maxLength: 150, nullable: false),
                     Patronym = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
+                    Gender = table.Column<string>(type: "text", nullable: false),
                     NickName = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     Email = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     Password = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
@@ -34,6 +35,12 @@ namespace DevRelCRM.Infrastructure.Migrations
                 name: "IX_Users_Email",
                 table: "Users",
                 column: "Email",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_NickName",
+                table: "Users",
+                column: "NickName",
                 unique: true);
 
             migrationBuilder.CreateIndex(
