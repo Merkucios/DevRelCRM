@@ -1,6 +1,7 @@
 ﻿using DevRelCRM.Core.DomainModels;
 using DevRelCRM.Core.Interfaces.Services;
 using DevRelCRM.Infrastructure.Database.PostgreSQL;
+using DevRelCRM.Infrastructure.Security;
 using MediatR;
 
 namespace DevRelCRM.Application.Users.Commands.CreateUser
@@ -30,11 +31,11 @@ namespace DevRelCRM.Application.Users.Commands.CreateUser
                 Gender = request.Gender,
                 NickName = request.NickName,
                 Email = request.Email,
-                Password = request.Password,
+                Password = PasswordHasher.HashPassword(request.Password),
                 Role = request.Role,
                 DateCreated = DateTime.UtcNow
             };
-
+            
             // Добавляем пользователя в контекст базы данных и сохраняем изменения
             await _userService.CreateUserAsync(user, cancellationToken);
 

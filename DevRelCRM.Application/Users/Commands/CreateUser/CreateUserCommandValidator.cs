@@ -20,10 +20,11 @@ namespace DevRelCRM.Application.Users.Commands.CreateUser
 
             RuleFor(createUserCommand => createUserCommand.NickName)
                 .NotEmpty()
-                .Must(IsAsciiLetters);
+                .Must(IsNicknameValid);
 
             RuleFor(createUserCommand => createUserCommand.Email)
-                .NotEmpty();
+                .NotEmpty()
+                .EmailAddress();
 
             RuleFor(createUserCommand => createUserCommand.Password)
                 .NotEmpty()
@@ -39,9 +40,8 @@ namespace DevRelCRM.Application.Users.Commands.CreateUser
                 .WithMessage("Пароли не совпадают");
         }
 
-        private bool IsAsciiLetters(string value) =>
-            value?.All(char.IsAsciiLetterOrDigit) ?? true;
-
+        private bool IsNicknameValid(string value) =>
+            value?.All(c => char.IsLetterOrDigit(c) || c == '_' || c == '-') ?? true;
         private bool IsUnicodeLetters(string value) =>
             value?.All(char.IsLetter) ?? true;
         
