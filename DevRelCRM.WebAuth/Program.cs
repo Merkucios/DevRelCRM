@@ -15,6 +15,8 @@ using DevRelCRM.Application.Users.Queries;
 using DevRelCRM.Application.Users.Commands.CreateUser;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
+using DevRelCRM.Application.Users.Commands.LoginUser;
+using DevRelCRM.Infrastructure.Security;
 
 namespace DevRelCRM.WebAuth
 {
@@ -53,7 +55,9 @@ namespace DevRelCRM.WebAuth
             builder.Services.AddScoped<IUserRepository, SQLUserRepository>();
             builder.Services.AddScoped<IUserService, UserService>();
 
+            builder.Services.AddTransient<JwtTokenGenerator>();
             builder.Services.AddTransient<IValidator<CreateUserCommand>, CreateUserCommandValidator>();
+            builder.Services.AddTransient<IValidator<LoginUserCommand>, LoginUserCommandValidator>();
 
             builder.Services.AddRazorPages().AddMvcOptions(options =>
             {

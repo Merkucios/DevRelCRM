@@ -2,7 +2,9 @@
 
 namespace DevRelCRM.Application.Users.Commands.CreateUser
 {
-    // Валидатор для команды создания нового пользователя
+    /// <summary>
+    /// Валидатор для команды создания нового пользователя.
+    /// </summary>
     public class CreateUserCommandValidator : AbstractValidator<CreateUserCommand>
     {
         public CreateUserCommandValidator()
@@ -40,8 +42,19 @@ namespace DevRelCRM.Application.Users.Commands.CreateUser
                 .WithMessage("Пароли не совпадают");
         }
 
+        /// <summary>
+        /// Проверяет, что имя пользователя содержит только ASCII символы '-' '_'.
+        /// </summary>
+        /// <param name="value">Имя пользователя для проверки.</param>
+        /// <returns>True, если имя пользователя содержит только допустимые символы.</returns>
         private bool IsNicknameValid(string value) =>
             value?.All(c => char.IsLetterOrDigit(c) || c == '_' || c == '-') ?? true;
+
+        /// <summary>
+        /// Проверяет, что строка состоит только из букв Unicode.
+        /// </summary>
+        /// <param name="value">Строка для проверки.</param>
+        /// <returns>True, если строка состоит только из букв Unicode.</returns>
         private bool IsUnicodeLetters(string value) =>
             value?.All(char.IsLetter) ?? true;
         

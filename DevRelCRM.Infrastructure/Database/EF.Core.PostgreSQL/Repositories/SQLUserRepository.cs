@@ -33,9 +33,19 @@ namespace DevRelCRM.Infrastructure.Database.PostgreSQL.Repositories
             
         }
 
-        public Task<User> GetByNameAsync(string nickName)
+        public async Task<User> GetByNameAsync(string nickName, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            var entity = await _context.Users
+                .Where(user => user.NickName == nickName)
+                .FirstOrDefaultAsync(cancellationToken);
+
+            if (entity == null || entity.NickName != nickName)
+            {
+                throw new Exception($"Не найдена запись в БД с {nickName}");
+            }
+
+            return entity;
+
         }
 
         public async Task<User> GetUserByIdAsync(Guid userId, CancellationToken cancellationToken)

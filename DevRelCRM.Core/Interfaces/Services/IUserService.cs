@@ -9,7 +9,7 @@ namespace DevRelCRM.Core.Interfaces.Services
         public Task UpdateUserAsync(Guid userId, Action<User> updateAction); 
         public Task<User> GetUserByIdAsync(Guid userId, CancellationToken cancellationToken);
         public Task<IEnumerable<User>> GetUsersAsync();
-        public Task<User> GetByNameAsync(string nickName);
+        public Task<User> GetByNameAsync(string nickName, CancellationToken cancellationToken);
         public Task DeleteUserAsync(Guid userId);
 
         // Можно добавлять бизнес-логику для поведения

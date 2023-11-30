@@ -13,7 +13,7 @@ namespace DevRelCRM.Application.Users.Commands.CreateUser
         private readonly IUserService _userService;
 
         // Конструктор, принимающий контекст базы данных EntityFramework
-        public CreateUserCommandHandler(ApplicationDbContext context, IUserService userService)
+        public CreateUserCommandHandler(IUserService userService)
         {
             _userService = userService;
         }

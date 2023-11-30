@@ -29,9 +29,9 @@ namespace DevRelCRM.Core.DomainServices
         }
 
         // Получает пользователя по его псевдониму (никнейму) асинхронно
-        public async Task<User> GetByNameAsync(string nickName)
+        public async Task<User> GetByNameAsync(string nickName, CancellationToken cancellationToken)
         {
-            return await _userRepository.GetByNameAsync(nickName);
+            return await _userRepository.GetByNameAsync(nickName, cancellationToken);
         }
 
         // Получает пользователя по его идентификатору асинхронно

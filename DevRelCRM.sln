@@ -15,7 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{5512C1DD
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevRelCRM.Application.UnitTests", "DevRelCRM.Application.UnitTests\DevRelCRM.Application.UnitTests.csproj", "{20FD57B1-1C05-41BE-92EA-F68535D67383}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevRelCRM.WebAuth", "DevRelCRM.WebAuth\DevRelCRM.WebAuth.csproj", "{E9319356-49BD-4CEC-AB2F-C0291E88317B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevRelCRM.WebAuth", "DevRelCRM.WebAuth\DevRelCRM.WebAuth.csproj", "{E9319356-49BD-4CEC-AB2F-C0291E88317B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
