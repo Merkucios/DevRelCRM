@@ -8,6 +8,7 @@ using System.Reflection;
 using DevRelCRM.Application.Users.Queries;
 using DevRelCRM.Core.Interfaces.Services;
 using DevRelCRM.Core.DomainServices;
+using DevRelCRM.Infrastructure.Security;
 
 namespace DevRelCRM.WebAPI
 {
@@ -16,23 +17,24 @@ namespace DevRelCRM.WebAPI
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            builder.AddServiceDefaults();
 
-            // Добавление контроллеров
+            // Р”РѕР±Р°РІР»РµРЅРёРµ РєРѕРЅС‚СЂРѕР»Р»РµСЂРѕРІ
             builder.Services.AddControllers();
 
-            // Добавление поддержки API Explorer для Endpoints
+            // Р”РѕР±Р°РІР»РµРЅРёРµ РїРѕРґРґРµСЂР¶РєРё API Explorer РґР»СЏ Endpoints
             builder.Services.AddEndpointsApiExplorer();
 
-            // Добавление поддержки Swagger для документации API
+            // Р”РѕР±Р°РІР»РµРЅРёРµ РїРѕРґРґРµСЂР¶РєРё Swagger РґР»СЏ РґРѕРєСѓРјРµРЅС‚Р°С†РёРё API
             builder.Services.AddSwaggerGen(c =>
                 c.SwaggerDoc("v1", new OpenApiInfo { 
                     Title = "DevRelCRM.WebAPI", 
                     Version = "v1", 
-                    Description = "RESTful API для взаимодействия клиентской части с серверной"}
+                    Description = "RESTful API РґР»СЏ РІР·Р°РёРјРѕРґРµР№СЃС‚РІРёСЏ РєР»РёРµРЅС‚СЃРєРѕР№ С‡Р°СЃС‚Рё СЃ СЃРµСЂРІРµСЂРЅРѕР№"}
             ));
 
 
-            // Dependency Injection для Entity Framework с использованием PostgreSQL
+            // Dependency Injection РґР»СЏ Entity Framework СЃ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµРј PostgreSQL
             builder.Services.AddDbContext<ApplicationDbContext>(
                 o => o.UseNpgsql(builder.Configuration.GetConnectionString("DevRelCRM_DB")));
 
@@ -40,7 +42,7 @@ namespace DevRelCRM.WebAPI
             // Dependency Injecttion AutoMapper
             builder.Services.AddAutoMapper(config =>
             {
-                // Добавление профилей маппинга из сборок приложения
+                // Р”РѕР±Р°РІР»РµРЅРёРµ РїСЂРѕС„РёР»РµР№ РјР°РїРїРёРЅРіР° РёР· СЃР±РѕСЂРѕРє РїСЂРёР»РѕР¶РµРЅРёСЏ
                 config.AddProfile(new AssemblyMappingProfile(Assembly.GetExecutingAssembly()));
                 config.AddProfile(new AssemblyMappingProfile(typeof(ApplicationDbContext).Assembly));
                 config.AddProfile(new AssemblyMappingProfile(typeof(UserDetailsVm).Assembly));
@@ -50,13 +52,16 @@ namespace DevRelCRM.WebAPI
             // Dependency Injecttion MediatR
             builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(AssemblyMappingProfile).Assembly));
 
-            // Dependency Injection для репозитория и сервиса пользователя
+            // Dependency Injection РґР»СЏ СЂРµРїРѕР·РёС‚РѕСЂРёСЏ Рё СЃРµСЂРІРёСЃР° РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
             builder.Services.AddScoped<IUserRepository, SQLUserRepository>();
             builder.Services.AddScoped<IUserService, UserService>();
 
+            builder.Services.AddTransient<JwtTokenGenerator>();
             var app = builder.Build();
 
-            // Включение Swagger в режиме разработки
+            app.MapDefaultEndpoints();
+
+            // Р’РєР»СЋС‡РµРЅРёРµ Swagger РІ СЂРµР¶РёРјРµ СЂР°Р·СЂР°Р±РѕС‚РєРё
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
@@ -67,13 +72,13 @@ namespace DevRelCRM.WebAPI
                 });
             }
 
-            // Включение HTTPS-перенаправления  
+            // Р’РєР»СЋС‡РµРЅРёРµ HTTPS-РїРµСЂРµРЅР°РїСЂР°РІР»РµРЅРёСЏ  
             app.UseHttpsRedirection();
 
-            // Включение авторизации
+            // Р’РєР»СЋС‡РµРЅРёРµ Р°РІС‚РѕСЂРёР·Р°С†РёРё
             app.UseAuthorization();
 
-            // Конфигурация маршрутов для контроллеров
+            // РљРѕРЅС„РёРіСѓСЂР°С†РёСЏ РјР°СЂС€СЂСѓС‚РѕРІ РґР»СЏ РєРѕРЅС‚СЂРѕР»Р»РµСЂРѕРІ
             app.MapControllers();
 
             app.Run();

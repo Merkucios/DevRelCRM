@@ -1,4 +1,4 @@
-﻿using DevRelCRM.Core.Constants;
+using DevRelCRM.Core.Constants;
 using DevRelCRM.Application.Mappings;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.IdentityModel.Tokens;
@@ -25,6 +25,8 @@ namespace DevRelCRM.WebAuth
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            builder.AddServiceDefaults();
+            builder.AddRedisOutputCache("cache");
 
             // Получаем настройки JWT из конфигурации
             var jwtIssuer = builder.Configuration["JwtSettings:Issuer"];
@@ -96,6 +98,8 @@ namespace DevRelCRM.WebAuth
             });
 
             var app = builder.Build();
+
+            app.MapDefaultEndpoints();
 
             // Конфигурируем конвейер HTTP-запросов
             if (!app.Environment.IsDevelopment())

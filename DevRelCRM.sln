@@ -17,6 +17,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevRelCRM.Application.UnitT
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevRelCRM.WebAuth", "DevRelCRM.WebAuth\DevRelCRM.WebAuth.csproj", "{E9319356-49BD-4CEC-AB2F-C0291E88317B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevRelCRM.Aspire.AppHost", "DevRelCRM.Aspire.AppHost\DevRelCRM.Aspire.AppHost.csproj", "{3C8C43B3-FCD2-4DC7-837D-3DDC5929EB48}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevRelCRM.Aspire.ServiceDefaults", "DevRelCRM.Aspire.ServiceDefaults\DevRelCRM.Aspire.ServiceDefaults.csproj", "{35E47AE2-41A1-46A1-B7D5-CE9530CF6998}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +51,14 @@ Global
 		{E9319356-49BD-4CEC-AB2F-C0291E88317B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E9319356-49BD-4CEC-AB2F-C0291E88317B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E9319356-49BD-4CEC-AB2F-C0291E88317B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C8C43B3-FCD2-4DC7-837D-3DDC5929EB48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C8C43B3-FCD2-4DC7-837D-3DDC5929EB48}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C8C43B3-FCD2-4DC7-837D-3DDC5929EB48}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C8C43B3-FCD2-4DC7-837D-3DDC5929EB48}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35E47AE2-41A1-46A1-B7D5-CE9530CF6998}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35E47AE2-41A1-46A1-B7D5-CE9530CF6998}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35E47AE2-41A1-46A1-B7D5-CE9530CF6998}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35E47AE2-41A1-46A1-B7D5-CE9530CF6998}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
