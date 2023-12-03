@@ -1,6 +1,8 @@
 var builder = DistributedApplication.CreateBuilder(args);
 
 var cache = builder.AddRedisContainer("cache");
+var rabbitmq = builder.AddRabbitMQConnection("MessageBroker");
+
 //  POSTGRES_HOST_AUTH_METHOD has been set to "trust". Нужно заменить на безопасный вход Docker контейнера
     // Связать DbContext с Pgdb контейнера
 var postgres = builder.AddPostgresContainer("postgres");
