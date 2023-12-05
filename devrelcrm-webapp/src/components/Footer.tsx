@@ -16,13 +16,13 @@ const Footer = () => {
 
             <div className="col-12 col-md-6 d-flex justify-content-center justify-content-md-end">
               <div className="d-flex flex-column flex-md-row gap-3">
-                <Link href="#" className="text-sm text-muted hover-text-gray-600">
+                <Link href="#" className="text-sm text-muted hover-text-gray-600 link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover">
                   Условия использования
                 </Link>
-                <Link href="#" className="text-sm text-muted hover-text-gray-600">
+                <Link href="#" className="text-sm text-muted hover-text-gray-600 link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover">
                   Политика конфиденциальности
                 </Link>
-                <Link href="#" className="text-sm text-muted hover-text-gray-600">
+                <Link href="#" className="text-sm text-muted hover-text-gray-600 link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover">
                   Политика использования файлов cookie
                 </Link>
               </div>

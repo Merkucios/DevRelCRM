@@ -8,10 +8,16 @@ var rabbitmq = builder.AddRabbitMQConnection("MessageBroker");
 var postgres = builder.AddPostgresContainer("postgres");
 var authDb = postgres.AddDatabase("AuthDb");
 
-builder.AddProject<Projects.DevRelCRM_WebAPI>("devrelcrm.webapi")
+builder.
+    AddNpmApp("NextFrontend", "../devrelcrm-webapp")
+    .WithServiceBinding(scheme: "http", hostPort: 3000); ;
+
+builder.
+    AddProject<Projects.DevRelCRM_WebAPI>("devrelcrm.webapi")
     .WithLaunchProfile("https");
 
-builder.AddProject<Projects.DevRelCRM_WebAuth>("devrelcrm.webauth")
+builder.
+    AddProject<Projects.DevRelCRM_WebAuth>("devrelcrm.webauth")
     .WithReference(cache)
     .WithLaunchProfile("https");
 

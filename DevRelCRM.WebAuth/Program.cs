@@ -26,7 +26,6 @@ namespace DevRelCRM.WebAuth
         {
             var builder = WebApplication.CreateBuilder(args);
             builder.AddServiceDefaults();
-            builder.AddRedisOutputCache("cache");
 
             // Получаем настройки JWT из конфигурации
             var jwtIssuer = builder.Configuration["JwtSettings:Issuer"];
