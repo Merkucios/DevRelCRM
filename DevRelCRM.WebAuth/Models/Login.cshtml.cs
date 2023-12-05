@@ -8,7 +8,7 @@
                     // Установка JWT токена в куки и перенаправление на страницу регистрации
                     Response.Cookies.Append("jwtToken", jwtToken);
                     await Console.Out.WriteLineAsync($"Токен: " + jwtToken);
-                    return RedirectToPage("/Index");
+                    return Redirect("http://localhost:3000/");
                 }
                 else
                 {

@@ -96,6 +96,17 @@ namespace DevRelCRM.WebAuth
                 options.AddPolicy($"{nameof(Roles.Administrator)}Policy", policy => policy.RequireRole(nameof(Roles.Administrator)));
             });
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("Policy", builder =>
+                {
+                    builder
+                    .WithOrigins("http://localhost:3000")
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
+                });
+            });
+
             var app = builder.Build();
 
             app.MapDefaultEndpoints();
@@ -108,12 +119,14 @@ namespace DevRelCRM.WebAuth
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseCors("Policy");
 
             app.MapRazorPages();
 

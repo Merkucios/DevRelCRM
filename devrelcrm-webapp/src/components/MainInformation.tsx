@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 const MainInformation = () => {
+    const authServerUrl = process.env.AUTH_SERVER_URL;
   return (
     <div className="py-20 mx-auto text-center d-flex flex-column align-items-center maxw-3xl">
       <div className="row">
@@ -17,7 +18,7 @@ const MainInformation = () => {
             бренда компании и познакомитесь с невероятными специалистами мира .
           </p>
           <div className="d-grid gap-2 col-10 col-md-4 mx-auto">
-            <Link href="/login" className="btn btn-outline-success btn-lg">
+            <Link href={authServerUrl + "registration"} className="btn btn-outline-success btn-lg">
               Регистрация
             </Link>
           </div>
