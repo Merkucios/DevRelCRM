@@ -1,6 +1,7 @@
 import Navbar from '@/components/Navbar'
+import Footer from '@/components/Footer'
 
-import { Container, Nav } from 'react-bootstrap'
+import { Container } from 'react-bootstrap'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
@@ -25,6 +26,7 @@ export default function RootLayout({
           <Container fluid className='flex-grow-1'>
             {children}
           </Container>
+          <Footer />
         </main>
       </body>
     </html>

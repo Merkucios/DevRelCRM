@@ -1,11 +1,13 @@
-import React from 'react'
+import MaxWidthWrapper from "@/components/MaxWidthWrapper";
+import MainInformation from "@/components/MainInformation";
+import IntegrationsReel from "@/components/IntegrationsReel";
+import React from "react";
 
 export default function Home() {
   return (
-    <div className='container'>
-      <h1>Bootstrap check</h1>
-      <button className='btn btn-primary'>Click Me</button>
-    </div>
-  )
+    <MaxWidthWrapper>
+      <MainInformation />
+      <IntegrationsReel />
+    </MaxWidthWrapper>
+  );
 }
-
