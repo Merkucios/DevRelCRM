@@ -5,6 +5,7 @@ import { Container } from 'react-bootstrap'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
+import UserSideBar from '@/components/UserSideBar'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -23,6 +24,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <main className='d-flex flex-column min-vh-100'>
           <Navbar />
+          <UserSideBar />
           <Container fluid className='flex-grow-1'>
             {children}
           </Container>

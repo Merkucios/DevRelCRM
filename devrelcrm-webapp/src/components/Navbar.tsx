@@ -3,12 +3,16 @@
 import { Icons } from "./Icons";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { checkAuthentication } from "@/utils/authUtils";
+import { checkAuthentication, logout } from "@/utils/authUtils";
 import { Button } from "react-bootstrap";
 
 const Navbar = () => {
   const authServerUrl = process.env.AUTH_SERVER_URL;
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  const handleLogout = () => {
+    logout();
+  };
 
   useEffect(() => {
     setIsAuthenticated(checkAuthentication());
@@ -47,7 +51,7 @@ const Navbar = () => {
               {isAuthenticated ? (
                 <Button
                   className="btn btn-dark"
-                  onClick={() => console.log("Logout logic")}
+                  onClick={handleLogout}
                 >
                   Выйти
                 </Button>

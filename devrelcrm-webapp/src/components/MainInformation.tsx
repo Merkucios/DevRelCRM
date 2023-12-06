@@ -1,8 +1,18 @@
+"use client";
+
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { checkAuthentication } from "@/utils/authUtils";
 
 const MainInformation = () => {
-    const authServerUrl = process.env.AUTH_SERVER_URL;
+  const authServerUrl = process.env.AUTH_SERVER_URL;
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    setIsAuthenticated(checkAuthentication());
+  }, []);
+
   return (
     <div className="py-20 mx-auto text-center d-flex flex-column align-items-center maxw-3xl">
       <div className="row">
@@ -17,10 +27,18 @@ const MainInformation = () => {
             нашей платформе вы найдёте необходимые инструменты для продвижения
             бренда компании и познакомитесь с невероятными специалистами мира .
           </p>
+
           <div className="d-grid gap-2 col-10 col-md-4 mx-auto">
-            <Link href={authServerUrl + "registration"} className="btn btn-outline-success btn-lg">
-              Регистрация
-            </Link>
+            {isAuthenticated ? (
+              <Image src="/stars.gif" height={125} width={125} alt="stars" />
+            ) : (
+              <Link
+                href={authServerUrl + "registration"}
+                className="btn btn-outline-success btn-lg"
+              >
+                Регистрация
+              </Link>
+            )}
           </div>
         </div>
         <div className="col-md-6 mt-5">
