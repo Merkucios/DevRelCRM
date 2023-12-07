@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Icons } from "./Icons";
 import { Nav } from "react-bootstrap";
 
-const UserDevRelSide = () => {
+const UserDevRelBar = () => {
   return (
     <Nav className="flex-row justify-content-center">
       <Nav.Item className="d-flex mx-2">
@@ -64,4 +64,4 @@ const UserDevRelSide = () => {
   );
 };
 
-export default UserDevRelSide;
+export default UserDevRelBar;
