@@ -9,14 +9,26 @@ const MiroDesk = () => {
   const [boards, setBoards] = useState<MiroBoard[]>([]);
   const [selectedBoard, setSelectedBoard] = useState<MiroBoard | null>(null);
 
+  // Загрузка данных досок при монтировании компонента
   useEffect(() => {
     const fetchMiroBoards = async () => {
       try {
+        // Получение списка досок с Miro
         const boardsData: MiroBoard[] = await MiroServiceApi.getBoards();
         setBoards(boardsData);
-      } catch (error: any) {
-        console.error(error.message);
+      
+      // Проверка наличия сохраненного идентификатора выбранной доски в локальном хранилище
+        // Такая логика выполнена для того, чтобы пользователь попал на доску с которой в последний раз работал
+      const savedBoardId = localStorage.getItem('selectedBoardId');
+      if (savedBoardId) {
+        const selected = boardsData.find((board) => board.id === savedBoardId);
+        if (selected) {
+          setSelectedBoard(selected);
+        }
       }
+    } catch (error: any) {
+      console.error(error.message);
+    }
     };
 
     fetchMiroBoards();
@@ -24,6 +36,7 @@ const MiroDesk = () => {
 
   const openMiroFrame = (board: MiroBoard) => {
     setSelectedBoard(board);
+    localStorage.setItem('selectedBoardId', board.id);
   };
 
   return (
