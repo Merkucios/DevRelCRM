@@ -1,13 +1,13 @@
 import Image from "next/image";
 import React from "react";
 
-interface IntegrationItemProps {
+interface ItemProps {
   imageSrc: string;
   title: string;
   description: string;
 }
 
-const IntegrationItem: React.FC<IntegrationItemProps> = ({
+const IntegrationItem: React.FC<ItemProps> = ({
   imageSrc,
   title,
   description,

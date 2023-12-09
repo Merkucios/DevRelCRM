@@ -4,3 +4,9 @@ require('dotenv').config();
 const nextConfig = {}
 
 module.exports = nextConfig
+
+module.exports = {
+    images: {
+      domains: ['miro.com'],
+    },
+  };
