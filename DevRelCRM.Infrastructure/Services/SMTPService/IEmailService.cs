@@ -20,5 +20,15 @@
         /// <param name="cancellationToken">Токен отмены операции.</param>
         /// <returns>True, если письмо успешно отправлено; в противном случае - false.</returns>
         Task<bool> SendEmailWithAttachmentsAsync(MailDataWithAttachments mailData, CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Получает содержимое электронного шаблона для указанного шаблона и модели.
+        /// </summary>
+        /// <typeparam name="T">Тип модели для электронного шаблона.</typeparam>
+        /// <param name="emailTemplate">Имя электронного шаблона.</param>
+        /// <param name="emailTemplateModel">Модель для электронного шаблона.</param>
+        /// <returns>Содержимое электронного шаблона.</returns>
+        string GetEmailTemplate<T>(string emailTemplate, T emailTemplateModel);
+
     }
 }

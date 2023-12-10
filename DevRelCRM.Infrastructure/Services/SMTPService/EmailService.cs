@@ -1,4 +1,4 @@
-﻿using MailKit; using MailKit.Net.Smtp; using MailKit.Security; using Microsoft.AspNetCore.Http; using Microsoft.Extensions.Options; using MimeKit;  namespace DevRelCRM.Infrastructure.Services.SMTPService {
+﻿using System.Reflection; using MailKit; using MailKit.Net.Smtp; using MailKit.Security; using Microsoft.AspNetCore.Http; using Microsoft.Extensions.Options; using MimeKit; using RazorEngineCore; using System.Text;  namespace DevRelCRM.Infrastructure.Services.SMTPService {
     /// <summary>
     /// Сервис электронной почты для отправки писем через службу SMTP.
     /// </summary>     public class EmailService : IEmailService     {
@@ -68,6 +68,55 @@
             {
                 return false;
             }
+        }
+
+        /// <summary>
+        /// Получает содержимое электронного шаблона для указанного шаблона и модели.
+        /// </summary>
+        /// <typeparam name="T">Тип модели для электронного шаблона.</typeparam>
+        /// <param name="emailTemplate">Имя электронного шаблона.</param>
+        /// <param name="emailTemplateModel">Модель для электронного шаблона.</param>
+        /// <returns>Содержимое электронного шаблона.</returns>
+        public string GetEmailTemplate<T>(string emailTemplate, T emailTemplateModel)
+        {
+            // Загружаем шаблон по имени
+            string mailTemplate = LoadTemplate(emailTemplate);
+
+            // Инициализируем движок Razor и компилируем шаблон
+            IRazorEngine razorEngine = new RazorEngine();
+            IRazorEngineCompiledTemplate modifiedMailTemplate = razorEngine.Compile(mailTemplate);
+
+            // Запускаем скомпилированный шаблон с переданной моделью
+            return modifiedMailTemplate.Run(emailTemplateModel);
+        }
+
+        /// <summary>
+        /// Загружает содержимое электронного шаблона по его имени.
+        /// </summary>
+        /// <param name="emailTemplate">Имя электронного шаблона.</param>
+        /// <returns>Содержимое электронного шаблона.</returns>
+        public string LoadTemplate(string emailTemplate)
+        {
+            // Получаем текущую директорию проекта (WebNotifications)
+            string baseDir = Directory.GetCurrentDirectory();
+
+            // Получаем директорию выше текущей (DevRelCRM)
+            string topDir = Directory.GetParent(baseDir).ToString();
+
+            // Формируем путь к директории с шаблонами
+            string templateDir = Path.Combine(topDir, "DevRelCRM.Infrastructure", "Services", "SMTPService", "WebTemplates");
+
+            // Формируем полный путь к файлу шаблона
+            string templatePath = Path.Combine(templateDir, $"{emailTemplate}.cshtml");
+
+            // Открываем файл шаблона и считываем его содержимое
+            using FileStream fileStream = new FileStream(templatePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+            using StreamReader streamReader = new StreamReader(fileStream, Encoding.Default);
+
+            string mailTemplate = streamReader.ReadToEnd();
+            streamReader.Close();
+
+            return mailTemplate;
         }
 
         private MimeMessage CreateMimeMessage(MailData mailData)
