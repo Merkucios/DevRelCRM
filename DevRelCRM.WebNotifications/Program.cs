@@ -1,4 +1,7 @@
 using DevRelCRM.Infrastructure.Services.SMTPService;
+using Microsoft.AspNetCore.Http.Features;
+using Serilog;
+using Serilog.Events;
 
 namespace DevRelCRM.WebNotifications
 {
@@ -6,6 +9,11 @@ namespace DevRelCRM.WebNotifications
     {
         public static void Main(string[] args)
         {
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Debug()
+                .WriteTo.Console()
+                .CreateLogger();
+
             var builder = WebApplication.CreateBuilder(args);
             builder.AddServiceDefaults();
 
@@ -26,6 +34,12 @@ namespace DevRelCRM.WebNotifications
                     .AllowAnyMethod()
                     .AllowAnyHeader();
                 });
+            });
+
+            builder.Services.Configure<FormOptions>(options =>
+            {
+                options.ValueLengthLimit = int.MaxValue;
+                options.MultipartBodyLengthLimit = int.MaxValue;
             });
 
             var app = builder.Build();

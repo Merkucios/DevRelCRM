@@ -1,31 +1,45 @@
 import axios from "axios";
 import { EmailData } from "@/data/MessageSending/EmailData";
 
-const API_URL : string = 'https://localhost:7021/api/v1/Notification';
+// URL для сервера уведомлений
+const Notification_Server_Url = process.env.NEXT_PUBLIC_NOTIFICATIONS_SERVER_URL;
 
+// API URL 
+const API_URL : string = Notification_Server_Url + 'api/v1/Notification';
+
+// Создание экземпляра axios с базовым URL для удобства отправки запросов
 const api = axios.create( {
     baseURL: API_URL,
 });
 
+// Функция для отправки электронного письма
 export const sendEmail = async (emailData: EmailData): Promise<any> => {
     try {
+      // Отправка POST-запроса на сервер уведомлений для отправки электронного письма
       const response = await api.post('/send-email', emailData);
       return response.data;
     } catch (error: any) {
+      // Обработка ошибок при отправке письма
       console.error('Ошибка отправки письма:', error);
       throw error.response.data;
     }
   };
-
-  export const sendEmailWithAttachment = async (emailData: FormData): Promise<any> => {
+  
+// Функция для отправки электронного письма с вложением
+  export const sendEmailWithAttachment = async (emailData: EmailData ): Promise<any> => {
     try {
+      // Отправка POST-запроса с указанием 'multipart/form-data' в заголовке для работы с файлами
       const response = await api.post('/send-email-with-attachment', emailData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
+
+      console.log(response);
+
       return response.data;
     } catch (error: any) {
+      // Обработка ошибок при отправке письма с вложением
       console.error('Ошибка отправки письма с вложением:', error);
       throw error.response.data;
     }

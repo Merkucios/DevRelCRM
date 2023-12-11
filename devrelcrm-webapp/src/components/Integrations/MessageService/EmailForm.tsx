@@ -1,10 +1,9 @@
 "use client";
 
-import { useState, ChangeEvent } from "react";
+import { useState, ChangeEvent, FormEvent } from "react";
 import { Form, Button, Dropdown, DropdownProps } from "react-bootstrap";
-import { sendEmail } from "@/api/MessageSendingAPI";
+import { sendEmail, sendEmailWithAttachment } from "@/api/MessageSendingAPI";
 import { EmailData } from "@/data/MessageSending/EmailData";
-import { AttachmentData } from "@/data/MessageSending/AttachmentData";
 import AdditionalField from "./AdditionalFormField";
 
 const EmailForm = () => {
@@ -20,6 +19,16 @@ const EmailForm = () => {
     "Адрес ответа": false,
     "Имя для ответа": false,
   });
+
+  const [formData, setFormData] = useState<EmailData>({
+    to: [],
+    subject: "",
+    body: "",
+    attachments: new FormData(),
+  });
+
+  // Состояние для отслеживания отправки сообщения
+  const [sending, setSending] = useState(false);
 
   // Обработчик выбора элемента из Dropdown
   const handleDropdownSelect: DropdownProps["onSelect"] = (eventKey, e) => {
@@ -45,10 +54,76 @@ const EmailForm = () => {
     }));
   };
 
+  const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
+    updateFormData("to", [e.target.value], formData, setFormData);
+  };
+
+  const handleFileInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (files) {
+      const newFormData = new FormData();
+
+      Array.from(files).forEach((file: File) => {
+        console.log("Adding file:", file);
+        newFormData.append("Attachments", file);
+      });
+
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        attachments: newFormData,
+      }));
+    }
+  };
+
+  const updateFormData = <T extends keyof EmailData>(
+    key: T,
+    value: EmailData[T],
+    formData: EmailData,
+    setFormData: React.Dispatch<React.SetStateAction<EmailData>>
+  ) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [key]: value,
+    }));
+  };
+  
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+
+    if (sending) {
+      // Если уже отправка в процессе, выход из функции
+      return;
+    }
+
+    try {
+      // Устанавливаем флаг отправки в true
+      setSending(true);
+      console.log(formData.attachments)
+      
+      if (
+        formData.attachments &&
+        formData.attachments.getAll("Attachments").length > 0
+      ) {
+        await sendEmailWithAttachment(formData);
+      } else {
+        console.log("отправка по sendEmail");
+        await sendEmail(formData);
+      }
+
+      console.log("Сообщение успешно отправлено!!!");
+    } catch (error) {
+      console.error("Произошла ошибка отправки сообщения:", error);
+    } finally {
+      // Сбрасываем флаг отправки в false независимо от результата
+      setSending(false);
+    }
+  };
+
   return (
     <div>
       <h1 className="mb-4 mt-3">Рассылка сообщений</h1>
-      <Form>
+      <Form onSubmit={handleSubmit}>
         {/* Добавление Dropdown для выбора типа адреса */}
         <Form.Group className="mb-3 d-flex align-items-center">
           <Form.Label className="me-3">Добавьте дополнительное поле</Form.Label>
@@ -75,7 +150,7 @@ const EmailForm = () => {
 
         <Form.Group className="mb-3">
           <Form.Label>Получатель сообщения</Form.Label>
-          <Form.Control type="email" />
+          <Form.Control type="email" onChange={handleEmailChange} />
         </Form.Group>
 
         {/* Рендеринг дополнительных полей на основе выбранных типов */}
@@ -89,16 +164,38 @@ const EmailForm = () => {
 
         <Form.Group className="mb-3">
           <Form.Label>Заголовок сообщения</Form.Label>
-          <Form.Control type="text" />
+          <Form.Control
+            type="text"
+            onChange={(e) =>
+              setFormData((prevData) => ({
+                ...prevData,
+                subject: e.target.value,
+              }))
+            }
+          />
         </Form.Group>
         <Form.Group className="mb-3">
           <Form.Label>Содержимое письма</Form.Label>
-          <Form.Control as="textarea" rows={4} />
+          <Form.Control
+            as="textarea"
+            rows={4}
+            onChange={(e) =>
+              setFormData((prevData) => ({ ...prevData, body: e.target.value }))
+            }
+          />
         </Form.Group>
         <Form.Group className="mb-3">
           <Form.Label>Добавить вложения</Form.Label>
-          <Form.Control type="file" multiple />
+          <Form.Control type="file" multiple onChange={handleFileInputChange} />
         </Form.Group>
+        <Button
+          className="mt-2"
+          variant="primary"
+          type="submit"
+          disabled={sending}
+        >
+          {sending ? "Отправка..." : "Отправить"}
+        </Button>
       </Form>
     </div>
   );

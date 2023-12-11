@@ -1,5 +1,3 @@
-import { AttachmentData } from "./AttachmentData";
-
 export interface EmailData {
     to: string[];
     bcc?: string[];
@@ -10,5 +8,5 @@ export interface EmailData {
     replyToName?: string;
     subject: string;
     body?: string;
-    attachments?: AttachmentData[];
+    attachments?: FormData;
   }
