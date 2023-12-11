@@ -23,7 +23,7 @@ builder
 
 var WebNotificationsAPI = 
     builder
-    .AddProject<Projects.DevRelCRM_WebNotifications>("devrelcrm.webnotifications")
+    .AddProject<Projects.DevRelCRM_WebNotificationsAPI>("devrelcrm.webnotifications")
     .WithLaunchProfile("https");
 
 

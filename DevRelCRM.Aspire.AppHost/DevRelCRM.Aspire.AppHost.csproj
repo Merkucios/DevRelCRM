@@ -16,7 +16,7 @@
   <ItemGroup>
     <ProjectReference Include="..\DevRelCRM.WebAPI\DevRelCRM.WebAPI.csproj" />
     <ProjectReference Include="..\DevRelCRM.WebAuth\DevRelCRM.WebAuth.csproj" />
-    <ProjectReference Include="..\DevRelCRM.WebNotifications\DevRelCRM.WebNotifications.csproj" />
+    <ProjectReference Include="..\DevRelCRM.WebNotifications\DevRelCRM.WebNotificationsAPI.csproj" />
   </ItemGroup>
 
 </Project>

@@ -21,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevRelCRM.Aspire.AppHost", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevRelCRM.Aspire.ServiceDefaults", "DevRelCRM.Aspire.ServiceDefaults\DevRelCRM.Aspire.ServiceDefaults.csproj", "{35E47AE2-41A1-46A1-B7D5-CE9530CF6998}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevRelCRM.WebNotifications", "DevRelCRM.WebNotifications\DevRelCRM.WebNotifications.csproj", "{13B87121-8BA6-4CFB-B123-3C040F54CCF2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevRelCRM.WebNotificationsAPI", "DevRelCRM.WebNotifications\DevRelCRM.WebNotificationsAPI.csproj", "{13B87121-8BA6-4CFB-B123-3C040F54CCF2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
