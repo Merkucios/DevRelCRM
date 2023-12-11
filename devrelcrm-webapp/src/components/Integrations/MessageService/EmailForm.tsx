@@ -6,6 +6,7 @@ import { sendEmail, sendEmailWithAttachment } from "@/api/MessageSendingAPI";
 import { EmailData } from "@/data/MessageSending/EmailData";
 import AdditionalField from "./AdditionalFormField";
 
+// Компонент формы отправки электронной почты
 const EmailForm = () => {
   // Состояния для отслеживания выбранных типов и видимости полей
   const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
@@ -14,7 +15,7 @@ const EmailForm = () => {
   }>({
     "Получатель скрытой копии": false,
     "Получатель копии": false,
-    Отправитель: false,
+    "Отправитель": false,
     "Отображаемое имя": false,
     "Адрес ответа": false,
     "Имя для ответа": false,
@@ -54,10 +55,12 @@ const EmailForm = () => {
     }));
   };
 
+  // Обработчик изменения адреса электронной почты
   const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
     updateFormData("to", [e.target.value], formData, setFormData);
   };
 
+  // Обработчик изменения вложенных файлов
   const handleFileInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (files) {
@@ -68,26 +71,25 @@ const EmailForm = () => {
         newFormData.append("Attachments", file);
       });
 
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        attachments: newFormData,
-      }));
+      updateFormData("attachments", newFormData, formData, setFormData);
     }
   };
 
+  // Функция обновления данных формы
+    // Обобщение T является подтипом объединения ключей типа EmailData -> T одно из полей EmailData
   const updateFormData = <T extends keyof EmailData>(
-    key: T,
-    value: EmailData[T],
-    formData: EmailData,
-    setFormData: React.Dispatch<React.SetStateAction<EmailData>>
+    key: T, // ключ - название поля данных формы
+    value: EmailData[T], // значение, которое нужно установить для указанного ключа
+    formData: EmailData, // текущие данные формы EmailData
+    setFormData: React.Dispatch<React.SetStateAction<EmailData>> // функция для установки новых данных формы
   ) => {
     setFormData((prevFormData) => ({
-      ...prevFormData,
-      [key]: value,
+      ...prevFormData, // копирование предыдущих данных формы
+      [key]: value, // установка нового значения для указанного ключа
     }));
   };
   
-
+  // Обработчик отправки формы
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
