@@ -21,13 +21,17 @@ builder
     .AddProject<Projects.DevRelCRM_WebAPI>("devrelcrm.webapi")
     .WithLaunchProfile("https");
 
+var WebNotificationsAPI = 
+    builder
+    .AddProject<Projects.DevRelCRM_WebNotifications>("devrelcrm.webnotifications")
+    .WithLaunchProfile("https");
+
+
 builder
     .AddProject<Projects.DevRelCRM_WebAuth>("devrelcrm.webauth")
     .WithReference(cache)
+    .WithReference(WebNotificationsAPI)
     .WithLaunchProfile("https");
 
-builder
-    .AddProject<Projects.DevRelCRM_WebNotifications>("devrelcrm.webnotifications")
-    .WithLaunchProfile("https");
 
 builder.Build().Run();
