@@ -1,0 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa');
+@import '~bootstrap/dist/css/bootstrap.min.css';
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Comfortaa', sans-serif;
+  }

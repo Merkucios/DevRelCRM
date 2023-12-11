@@ -1,0 +1,62 @@
+{
+  "resources": {
+    "cache": {
+      "type": "redis.v0"
+    },
+    "MessageBroker": {
+      "type": "rabbitmq.connection.v0",
+      "connectionString": null
+    },
+    "postgres": {
+      "type": "postgres.server.v0"
+    },
+    "AuthDb": {
+      "type": "postgres.database.v0",
+      "parent": "postgres"
+    },
+    "mongodb": {
+      "type": "mongodb.server.v0"
+    },
+    "devrelcrm.webapi": {
+      "type": "project.v0",
+      "path": "..\\DevRelCRM.WebAPI\\DevRelCRM.WebAPI.csproj",
+      "env": {
+        "OTEL_DOTNET_EXPERIMENTAL_OTLP_EMIT_EXCEPTION_LOG_ATTRIBUTES": "true",
+        "OTEL_DOTNET_EXPERIMENTAL_OTLP_EMIT_EVENT_LOG_ATTRIBUTES": "true"
+      },
+      "bindings": {
+        "http": {
+          "scheme": "http",
+          "protocol": "tcp",
+          "transport": "http"
+        },
+        "https": {
+          "scheme": "https",
+          "protocol": "tcp",
+          "transport": "http"
+        }
+      }
+    },
+    "devrelcrm.webauth": {
+      "type": "project.v0",
+      "path": "..\\DevRelCRM.WebAuth\\DevRelCRM.WebAuth.csproj",
+      "env": {
+        "OTEL_DOTNET_EXPERIMENTAL_OTLP_EMIT_EXCEPTION_LOG_ATTRIBUTES": "true",
+        "OTEL_DOTNET_EXPERIMENTAL_OTLP_EMIT_EVENT_LOG_ATTRIBUTES": "true",
+        "ConnectionStrings__cache": "{cache.connectionString}"
+      },
+      "bindings": {
+        "http": {
+          "scheme": "http",
+          "protocol": "tcp",
+          "transport": "http"
+        },
+        "https": {
+          "scheme": "https",
+          "protocol": "tcp",
+          "transport": "http"
+        }
+      }
+    }
+  }
+}

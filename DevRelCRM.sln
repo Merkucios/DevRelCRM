@@ -5,9 +5,23 @@ VisualStudioVersion = 17.8.34309.116
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevRelCRM.WebAPI", "DevRelCRM.WebAPI\DevRelCRM.WebAPI.csproj", "{459C38C6-916A-4DF1-B884-BE592E9EFA49}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevRelCRM.Core", "DevRelCRM.Core\DevRelCRM.Core.csproj", "{98C55E81-E99B-495D-9A79-3AE34255ABC7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevRelCRM.Core", "DevRelCRM.Core\DevRelCRM.Core.csproj", "{98C55E81-E99B-495D-9A79-3AE34255ABC7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevRelCRM.Infrastructure", "DevRelCRM.Infrastructure\DevRelCRM.Infrastructure.csproj", "{2CA13D36-53F3-47A5-BEBE-8D673BD9679E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevRelCRM.Infrastructure", "DevRelCRM.Infrastructure\DevRelCRM.Infrastructure.csproj", "{2CA13D36-53F3-47A5-BEBE-8D673BD9679E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevRelCRM.Application", "DevRelCRM.Application\DevRelCRM.Application.csproj", "{A3511917-06F7-4C99-AFCA-391554F79817}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{5512C1DD-704D-4CD2-903B-1A24F1191B29}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevRelCRM.Application.UnitTests", "DevRelCRM.Application.UnitTests\DevRelCRM.Application.UnitTests.csproj", "{20FD57B1-1C05-41BE-92EA-F68535D67383}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevRelCRM.WebAuth", "DevRelCRM.WebAuth\DevRelCRM.WebAuth.csproj", "{E9319356-49BD-4CEC-AB2F-C0291E88317B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevRelCRM.Aspire.AppHost", "DevRelCRM.Aspire.AppHost\DevRelCRM.Aspire.AppHost.csproj", "{3C8C43B3-FCD2-4DC7-837D-3DDC5929EB48}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevRelCRM.Aspire.ServiceDefaults", "DevRelCRM.Aspire.ServiceDefaults\DevRelCRM.Aspire.ServiceDefaults.csproj", "{35E47AE2-41A1-46A1-B7D5-CE9530CF6998}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevRelCRM.WebNotificationsAPI", "DevRelCRM.WebNotifications\DevRelCRM.WebNotificationsAPI.csproj", "{13B87121-8BA6-4CFB-B123-3C040F54CCF2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,9 +41,36 @@ Global
 		{2CA13D36-53F3-47A5-BEBE-8D673BD9679E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2CA13D36-53F3-47A5-BEBE-8D673BD9679E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2CA13D36-53F3-47A5-BEBE-8D673BD9679E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3511917-06F7-4C99-AFCA-391554F79817}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3511917-06F7-4C99-AFCA-391554F79817}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3511917-06F7-4C99-AFCA-391554F79817}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3511917-06F7-4C99-AFCA-391554F79817}.Release|Any CPU.Build.0 = Release|Any CPU
+		{20FD57B1-1C05-41BE-92EA-F68535D67383}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20FD57B1-1C05-41BE-92EA-F68535D67383}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20FD57B1-1C05-41BE-92EA-F68535D67383}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20FD57B1-1C05-41BE-92EA-F68535D67383}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9319356-49BD-4CEC-AB2F-C0291E88317B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9319356-49BD-4CEC-AB2F-C0291E88317B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9319356-49BD-4CEC-AB2F-C0291E88317B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9319356-49BD-4CEC-AB2F-C0291E88317B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C8C43B3-FCD2-4DC7-837D-3DDC5929EB48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C8C43B3-FCD2-4DC7-837D-3DDC5929EB48}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C8C43B3-FCD2-4DC7-837D-3DDC5929EB48}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C8C43B3-FCD2-4DC7-837D-3DDC5929EB48}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35E47AE2-41A1-46A1-B7D5-CE9530CF6998}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35E47AE2-41A1-46A1-B7D5-CE9530CF6998}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35E47AE2-41A1-46A1-B7D5-CE9530CF6998}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35E47AE2-41A1-46A1-B7D5-CE9530CF6998}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13B87121-8BA6-4CFB-B123-3C040F54CCF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13B87121-8BA6-4CFB-B123-3C040F54CCF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13B87121-8BA6-4CFB-B123-3C040F54CCF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13B87121-8BA6-4CFB-B123-3C040F54CCF2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{20FD57B1-1C05-41BE-92EA-F68535D67383} = {5512C1DD-704D-4CD2-903B-1A24F1191B29}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E9B0DD58-2F11-44E8-B9A8-50E4252078B1}

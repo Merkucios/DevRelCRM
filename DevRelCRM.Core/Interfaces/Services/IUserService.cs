@@ -1,18 +1,16 @@
-﻿using System.Collections.Generic;
-using DevRelCRM.Core;
-using DevRelCRM.Core.DomainModels;
-
+﻿using DevRelCRM.Core.DomainModels;
 
 namespace DevRelCRM.Core.Interfaces.Services
 {
+    // Интерфейс сервиса для работы с пользователями
     public interface IUserService
     {
-        public Task CreateUserAsync(User user);
-        public Task UpdateUserAsync(User user);
-        public Task<User> GetUserByIdAsync(int userId);
+        public Task CreateUserAsync(User user, CancellationToken cancellationToken);
+        public Task UpdateUserAsync(Guid userId, Action<User> updateAction); 
+        public Task<User> GetUserByIdAsync(Guid userId, CancellationToken cancellationToken);
         public Task<IEnumerable<User>> GetUsersAsync();
-        public Task<User> GetByNameAsync(string nickName);
-        public Task DeleteUserAsync(int userId);
+        public Task<User> GetByNameAsync(string nickName, CancellationToken cancellationToken);
+        public Task DeleteUserAsync(Guid userId);
 
         // Можно добавлять бизнес-логику для поведения
 
