@@ -17,6 +17,7 @@ using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using DevRelCRM.Application.Users.Commands.LoginUser;
 using DevRelCRM.Infrastructure.Security;
+using Serilog;
 
 namespace DevRelCRM.WebAuth
 {
@@ -24,6 +25,11 @@ namespace DevRelCRM.WebAuth
     {
         public static void Main(string[] args)
         {
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Debug()
+                .WriteTo.Console()
+                .CreateLogger();
+
             var builder = WebApplication.CreateBuilder(args);
             builder.AddServiceDefaults();
 

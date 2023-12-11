@@ -9,6 +9,7 @@ using DevRelCRM.Application.Users.Queries;
 using DevRelCRM.Core.Interfaces.Services;
 using DevRelCRM.Core.DomainServices;
 using DevRelCRM.Infrastructure.Security;
+using Serilog;
 
 namespace DevRelCRM.WebAPI
 {
@@ -16,6 +17,11 @@ namespace DevRelCRM.WebAPI
     {
         public static void Main(string[] args)
         {
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Debug()
+                .WriteTo.Console()
+                .CreateLogger();
+
             var builder = WebApplication.CreateBuilder(args);
             builder.AddServiceDefaults();
 

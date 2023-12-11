@@ -22,8 +22,8 @@ const UserSideBar = () => {
 
   return (
     <div className="d-flex flex-column flex-shrink-1 p-1 text-white bg-light">
-      {/* {isAuthenticated && userRole === "DevRel" && */}
-      <UserDevRelBar />
+      {isAuthenticated && userRole === "DevRel" &&
+      <UserDevRelBar /> }
       {isAuthenticated && userRole === "Programmer" &&
       <UserProgrammerBar />}
     </div>
