@@ -1,7 +1,20 @@
-﻿using System.Reflection; using MailKit; using MailKit.Net.Smtp; using MailKit.Security; using Microsoft.AspNetCore.Http; using Microsoft.Extensions.Options; using MimeKit; using RazorEngineCore; using System.Text;  namespace DevRelCRM.Infrastructure.Services.SMTPService {
+﻿using System.Reflection;
+using MailKit;
+using MailKit.Net.Smtp;
+using MailKit.Security;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Options;
+using MimeKit;
+using RazorEngineCore;
+using System.Text;
+
+namespace DevRelCRM.Infrastructure.Services.SMTPService
+{
     /// <summary>
     /// Сервис электронной почты для отправки писем через службу SMTP.
-    /// </summary>     public class EmailService : IEmailService     {
+    /// </summary>
+    public class EmailService : IEmailService
+    {
         private readonly MailSettings _settings;
 
         public EmailService(IOptions<MailSettings> settings)

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import MiroServiceApi from "@/api/MiroServiceApi";
-import MiroBoard from "@/data/MiroBoard";
+import MiroBoard from "@/data/Miro/MiroBoard";
 import { Card, Button, Col, Row } from "react-bootstrap";
 
 const MiroDesk = () => {

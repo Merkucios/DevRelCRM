@@ -1,5 +1,5 @@
 import axios from "axios";
-import MiroBoard from "@/data/MiroBoard";
+import MiroBoard from "@/data/Miro/MiroBoard";
 
 // Токен доступа к Miro API из переменной окружения
 const accessToken = process.env.NEXT_PUBLIC_MIRO_API_TOKEN;

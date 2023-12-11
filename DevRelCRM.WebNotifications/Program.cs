@@ -17,6 +17,17 @@ namespace DevRelCRM.WebNotifications
             builder.Services.Configure<MailSettings>(builder.Configuration.GetSection(nameof(MailSettings)));
             builder.Services.AddTransient<IEmailService, EmailService>();
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("Policy", builder =>
+                {
+                    builder
+                    .WithOrigins("http://localhost:3000")
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
+                });
+            });
+
             var app = builder.Build();
 
             app.MapDefaultEndpoints();
@@ -31,6 +42,7 @@ namespace DevRelCRM.WebNotifications
 
             app.UseAuthorization();
 
+            app.UseCors("Policy");
 
             app.MapControllers();
 

@@ -1,6 +1,6 @@
-import MaxWidthWrapper from "@/components/MaxWidthWrapper";
-import MainInformation from "@/components/MainInformation";
-import IntegrationsReel from "@/components/IntegrationsReel";
+import MaxWidthWrapper from "@/components/Main/MaxWidthWrapper";
+import MainInformation from "@/components/Main/MainInformation";
+import IntegrationsReel from "@/components/Main/IntegrationsReel";
 import React from "react";
 
 export default function Home() {

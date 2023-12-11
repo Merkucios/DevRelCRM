@@ -1,11 +1,11 @@
-import Navbar from '@/components/Navbar'
-import Footer from '@/components/Footer'
+import Navbar from '@/components/Main/Navbar'
+import Footer from '@/components/Main/Footer'
 
 import { Container } from 'react-bootstrap'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
-import UserSideBar from '@/components/UserSideBar'
+import UserSideBar from '@/components/RoleBars/UserSideBar'
 
 const inter = Inter({ subsets: ['latin'] })
 

@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { Icons } from "./Icons";
+import { Icons } from "../Main/Icons";
 import { Nav } from "react-bootstrap";
 
 const UserDevRelBar = () => {
@@ -42,7 +42,7 @@ const UserDevRelBar = () => {
       <Nav.Item className="d-flex mx-2">
         <Icons.letter className="img-fluid" />
         <Link
-          href="/miro"
+          href="/message-sending"
           className="nav-link link-dark p-2 
             link-body-emphasis link-offset-1 link-underline-opacity-25 link-underline-opacity-75-hover"
         >

@@ -1,4 +1,4 @@
-import MaxWidthWrapper from "@/components/MaxWidthWrapper";
+import MaxWidthWrapper from "@/components/Main/MaxWidthWrapper";
 import MiroDesk from "@/components/Integrations/MiroDesk";
 
 export default function Miro() {
