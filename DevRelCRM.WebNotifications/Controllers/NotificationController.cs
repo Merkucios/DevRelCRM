@@ -3,7 +3,6 @@ using Serilog;
 using DevRelCRM.Infrastructure.Services.SMTPService;
 using DevRelCRM.Infrastructure.Services.SMTPService.TemplateModels;
 using Microsoft.AspNetCore.Mvc;
-using Org.BouncyCastle.Asn1.Pkcs;
 
 namespace DevRelCRM.WebNotifications.Controllers
 {
