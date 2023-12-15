@@ -15,7 +15,7 @@ const EmailForm = () => {
   }>({
     "Получатель скрытой копии": false,
     "Получатель копии": false,
-    "Отправитель": false,
+    Отправитель: false,
     "Отображаемое имя": false,
     "Адрес ответа": false,
     "Имя для ответа": false,
@@ -57,7 +57,14 @@ const EmailForm = () => {
 
   // Обработчик изменения адреса электронной почты
   const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
-    updateFormData("to", [e.target.value], formData, setFormData);
+    // Разделяем строку с адресами по запятой
+    const emails = e.target.value.split(",");
+
+    // Удаляем лишние пробелы у каждого адреса
+    const trimmedEmails = emails.map((email) => email.trim());
+
+    // Обновляем форму с массивом адресов
+    updateFormData("to", trimmedEmails, formData, setFormData);
   };
 
   // Обработчик изменения вложенных файлов
@@ -76,7 +83,7 @@ const EmailForm = () => {
   };
 
   // Функция обновления данных формы
-    // Обобщение T является подтипом объединения ключей типа EmailData -> T одно из полей EmailData
+  // Обобщение T является подтипом объединения ключей типа EmailData -> T одно из полей EmailData
   const updateFormData = <T extends keyof EmailData>(
     key: T, // ключ - название поля данных формы
     value: EmailData[T], // значение, которое нужно установить для указанного ключа
@@ -88,7 +95,7 @@ const EmailForm = () => {
       [key]: value, // установка нового значения для указанного ключа
     }));
   };
-  
+
   // Обработчик отправки формы
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -101,8 +108,8 @@ const EmailForm = () => {
     try {
       // Устанавливаем флаг отправки в true
       setSending(true);
-      console.log(formData.attachments)
-      
+      console.log(formData.attachments);
+
       if (
         formData.attachments &&
         formData.attachments.getAll("Attachments").length > 0
@@ -152,7 +159,7 @@ const EmailForm = () => {
 
         <Form.Group className="mb-3">
           <Form.Label>Получатель сообщения</Form.Label>
-          <Form.Control type="email" onChange={handleEmailChange} />
+          <Form.Control type="text" onChange={handleEmailChange} />
         </Form.Group>
 
         {/* Рендеринг дополнительных полей на основе выбранных типов */}

@@ -32,7 +32,10 @@ export const sendEmail = async (emailData: EmailData): Promise<any> => {
       const formData = new FormData();
 
       // Добавляем в FormData получателей, тему и тело письма
-      formData.append('to', emailData.to.join(','));
+      for (var i = 0; i < emailData.to.length; i++) {
+        formData.append('to[]', emailData.to[i]);
+      }
+      
       formData.append('subject', emailData.subject);
       formData.append('body', emailData.body ?? "");
 
