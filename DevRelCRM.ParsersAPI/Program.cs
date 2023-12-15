@@ -1,4 +1,8 @@
+using DevRelCRM.Infrastructure.Database.MongoDB.Habr.Services;
+using DevRelCRM.Infrastructure.Database.MongoDB.Habr;
+using MongoDB.Driver;
 using Serilog;
+using DevRelCRM.Infrastructure.Database.MongoDB;
 
 namespace DevRelCRM.ParsersAPI
 {
@@ -6,12 +10,15 @@ namespace DevRelCRM.ParsersAPI
     {
         public static void Main(string[] args)
         {
+
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
                 .WriteTo.Console()
                 .CreateLogger();
 
             var builder = WebApplication.CreateBuilder(args);
+
+            string MongoDB_Connection = builder.Configuration.GetConnectionString("DevRelCRM_MongoDB");
 
             builder.AddServiceDefaults();
 
@@ -32,6 +39,13 @@ namespace DevRelCRM.ParsersAPI
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+
+            var MongoSingletion = builder.Services.AddSingleton<IMongoClient>(
+                new MongoClient(MongoDB_Connection));
+
+            builder.Services.AddScoped<IMongoSaveService, MongoDbSaveService>();
+
 
             var app = builder.Build();
 

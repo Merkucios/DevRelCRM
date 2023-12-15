@@ -1,4 +1,6 @@
 ﻿using DevRelCRM.Infrastructure.Database.MongoDB;
+using DevRelCRM.Infrastructure.Database.MongoDB.Habr.Services;
+using DevRelCRM.Infrastructure.Database.MongoDB.Habr;
 using DevRelCRM.Infrastructure.Parsers.Habr;
 using DevRelCRM.Infrastructure.Parsers.Habr.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -9,15 +11,31 @@ namespace DevRelCRM.ParsersAPI.Controllers
     [ApiController]
     public class HabrController : Controller
     {
+        private readonly IMongoSaveService _mongoSaveService;
+
+        public HabrController(IMongoSaveService mongoSaveService)
+        {
+            _mongoSaveService = mongoSaveService ?? throw new ArgumentNullException(nameof(mongoSaveService));
+        }
+
+
         [HttpPost("parse-articles")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> ParseArticles()
         {
-            Task<IEnumerable<HabrArticle>> articles = HabrParser.ParseArticlesAsync();
-            JsonFileWriter.SaveToJson(await articles, "habr_articles");
+            try
+            {
+                IEnumerable<HabrArticle> articles = await HabrParser.ParseArticlesAsync();
 
-            return Ok();
+                await _mongoSaveService.SaveAsync(articles, MongoDbNames.HABR_DATABASE);
+
+                return Ok("Статьи успешно спаршены и сохранены в Mongo.");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Произошла ошибка сервера. Даннные не отправлены. { ex.Message}");
+            }
         }
 
         [HttpPost("parse-news")]
@@ -25,10 +43,18 @@ namespace DevRelCRM.ParsersAPI.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> ParseNews(int? endPage = null)
         {
-            Task<IEnumerable<HabrNews>> news = HabrParser.ParseNewsAsync(endPage.Value);
-            JsonFileWriter.SaveToJson(await news, "habr_news");
+            try
+            {
+                IEnumerable<HabrNews> news = await HabrParser.ParseNewsAsync();
 
-            return Ok();
+                await _mongoSaveService.SaveAsync(news, MongoDbNames.HABR_DATABASE);
+
+                return Ok("Новости успешно спаршены и сохранены в Mongo.");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Произошла ошибка сервера. Даннные не отправлены. {ex.Message}");
+            }
         }
     }
 }
