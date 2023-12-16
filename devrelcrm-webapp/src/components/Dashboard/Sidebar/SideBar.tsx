@@ -26,19 +26,9 @@ const menuItems = [
   {
     list: [
       {
-        title: "Хабр",
-        path: "/dashboard/habr",
+        title: "Проекты",
+        path: "/dashboard/projects",
         icon: <Sparkles />,
-      },
-      {
-        title: "Участники митапов",
-        path: "/dashboard/participants",
-        icon: <PersonStanding />,
-      },
-      {
-        title: "Команда разработчиков",
-        path: "/dashboard/team",
-        icon: <Code2 />,
       },
     ],
   },
