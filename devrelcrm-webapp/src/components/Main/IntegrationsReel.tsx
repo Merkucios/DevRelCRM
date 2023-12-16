@@ -8,16 +8,16 @@ const IntegrationsReel = () => {
       <div className="card-group row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
         <div className="card-group col">
           <ItemReel
-            imageSrc="headhunter.png"
-            title="HeadHunter поисковик"
-            description="Уникальные профессионалы в поисках вашей компании"
+            imageSrc="miro.png"
+            title="Miro"
+            description="Безграничная возможность создания удобных канбан досок"
           />
         </div>
         <div className="card-group col">
           <ItemReel
-            imageSrc="habr.png"
-            title="Хабр поисковик"
-            description="Специалисты страны делятся полезными знаниями"
+            imageSrc="calendar.png"
+            title="Календарь мероприятий"
+            description="Идеальный спобоб организации тасков по дням "
           />
         </div>
         <div className="card-group col">
@@ -25,6 +25,13 @@ const IntegrationsReel = () => {
             imageSrc="mailkit.png"
             title="Рассылка сообщений"
             description="Утилита MailKit предоставляет шикарную возможность рассылки электронных писем"
+          />
+        </div>
+        <div className="card-group col">
+          <ItemReel
+            imageSrc="habr.png"
+            title="Хабр поисковик"
+            description="Специалисты страны делятся полезными знаниями"
           />
         </div>
       </div>

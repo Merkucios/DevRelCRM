@@ -17,7 +17,7 @@ const UserDevRelBar = () => {
         </Link>
       </Nav.Item>
 
-      <Nav.Item className="d-flex mx-2">
+      {/* <Nav.Item className="d-flex mx-2">
         <Icons.agile className="img-fluid" />
         <Link
           href="/agile"
@@ -26,7 +26,7 @@ const UserDevRelBar = () => {
         >
           Канбан доска
         </Link>
-      </Nav.Item>
+      </Nav.Item> */}
 
       <Nav.Item className="d-flex mx-2">
         <Icons.calendar className="img-fluid" />
