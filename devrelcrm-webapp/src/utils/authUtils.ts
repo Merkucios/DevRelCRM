@@ -18,10 +18,8 @@ export const logout = () => {
 
 export const getRoleFromToken = (token: string | undefined): string => {
   const rolePath = 'http://schemas.microsoft.com/ws/2008/06/identity/claims/role';
-
   try {
     const decoded = jwt.decode(token!) as JwtPayload;
-    console.log(decoded);
 
     if (decoded && decoded[rolePath]) {
       return decoded[rolePath] as string;
@@ -31,5 +29,22 @@ export const getRoleFromToken = (token: string | undefined): string => {
   } catch (error) {
     console.error('Ошибка при декодировании токена:', error);
     return 'defaultRole';
+  }
+};
+
+export const getUserNameFromToken = (token: string | undefined): string => {
+  const userNamePath = 'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'
+
+  try {
+    const decoded = jwt.decode(token!) as JwtPayload;
+
+    if (decoded && decoded[userNamePath]) {
+      return decoded[userNamePath] as string;
+    } else {
+      return 'UserName';
+    }
+  } catch (error) {
+    console.error('Ошибка при декодировании токена:', error);
+    return 'UserName';
   }
 };
