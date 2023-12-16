@@ -2,14 +2,8 @@
 
 import {
   Box,
-  Button,
   Flex,
-  Grid,
   Progress,
-  SimpleGrid,
-  Stat,
-  StatLabel,
-  StatNumber,
   Table,
   Tbody,
   Td,
@@ -17,7 +11,6 @@ import {
   Th,
   Thead,
   Tr,
-  useColorMode,
   useColorModeValue,
 } from "@chakra-ui/react";
 
@@ -35,8 +28,6 @@ import { pageVisits, socialTraffic } from "@/variables/general";
 import {
   barChartData,
   barChartOptions,
-  lineChartData,
-  lineChartOptions,
 } from "@/variables/charts";
 
 export default function Dashboard() {
