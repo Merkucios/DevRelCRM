@@ -15,16 +15,22 @@ const EmailForm = () => {
   }>({
     "Получатель скрытой копии": false,
     "Получатель копии": false,
-    Отправитель: false,
-    "Отображаемое имя": false,
-    "Адрес ответа": false,
+    "Отправитель": false,
+    "Имя отправителя": false,
+    "Адрес для ответа": false,
     "Имя для ответа": false,
   });
 
   const [formData, setFormData] = useState<EmailData>({
     to: [],
+    bcc: [],
+    cc: [],
+    from: undefined,
+    displayName: undefined,
+    replyTo: undefined,
+    replyToName: undefined,
     subject: "",
-    body: "",
+    body: undefined,
     attachments: new FormData(),
   });
 
@@ -42,6 +48,30 @@ const EmailForm = () => {
         return updatedVisibility;
       });
     }
+  };
+
+
+  // Вот это анекдот полный но я уже в отчаянии
+  const handleFieldChange = (field: string, value: string) => {
+    setFormData((prevData) => {
+      switch (field) {
+        case "Получатель скрытой копии":
+          return { ...prevData, bcc: [value] };
+        case "Получатель копии":
+          return { ...prevData, cc: [value] };
+        case "Отправитель":
+          return { ...prevData, from: value };
+        case "Имя отправителя":
+          return { ...prevData, displayName: value };
+        case "Адрес для ответа":
+          return { ...prevData, replyTo: value };
+        case "Имя для ответа":
+          return { ...prevData, replyToName: value };
+        // Добавьте другие case для обработки других полей
+        default:
+          return { ...prevData, [field]: value };
+      }
+    });
   };
 
   // Обработчик удаления выбранного поля
@@ -168,6 +198,7 @@ const EmailForm = () => {
             key={type}
             field={type}
             onRemove={handleRemoveField}
+            onFieldChange={handleFieldChange}
           />
         ))}
 
