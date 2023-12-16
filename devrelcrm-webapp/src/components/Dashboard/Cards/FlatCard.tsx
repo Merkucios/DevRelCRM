@@ -12,7 +12,7 @@ const FlatCard: React.FC<FlatCardProps> = ({ icon, text, subText }) => {
   return (
     <Card
       className="shadow p-3 mt-2 mb-5 bg-white rounded text-center"
-      style={{ width: "17.5rem" }}
+      style={{ width: "17.5rem"}}
     >
       <Card.Body className="p-0">
         {icon && typeof icon === "string" ? (

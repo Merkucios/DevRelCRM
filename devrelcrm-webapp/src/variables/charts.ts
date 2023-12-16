@@ -1,46 +1,59 @@
+import { ApexOptions } from "apexcharts";
+
 export const barChartData = [
     {
-      name: "Sales",
-      data: [15, 25, 28, 10, 25, 20],
+      name: "Кол-во пользователей",
+      data: [813, 617, 431, 315, 204],
     },
   ];
   
-  export const barChartOptions = {
+  export const barChartOptions : ApexOptions  = {
     chart: {
       toolbar: {
-        show: false,
+        show: true,
       },
     },
     tooltip: {
       theme: "dark",
     },
     xaxis: {
-      categories: ["Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        title: {
+            text: "Сервисы привлечения аудитории", 
+            style: {
+              fontSize: "12px",
+              color: "#82878d", 
+            },
+          },
+      categories: ["Вконтакте", "Телеграм", "Ютуб", "Хабр", "HeadHunter"],
       labels: {
         style: {
-          colors: "#A0AEC0",
+          colors: "#343639",
           fontSize: "12px",
         },
       },
-      show: true,
       axisBorder: {
         show: false,
       },
       
     },
     yaxis: {
+        title: {
+            text: "Кол-во пользователей", 
+            style: {
+              fontSize: "12px",
+              color: "#82878d", 
+            },
+          },
       show: true,
-      color: "#A0AEC0",
       labels: {
         show: true,
         style: {
-          colors: "#A0AEC0",
-          fontSize: "14px",
+          colors: "#343639",
+          fontSize: "16px",
         },
       },
     },
     fill: {
-      colors: "#ED8936",
     },
     dataLabels: {
       enabled: false,

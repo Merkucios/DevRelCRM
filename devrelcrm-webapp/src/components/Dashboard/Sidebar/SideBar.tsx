@@ -1,13 +1,13 @@
 "use client";
 
 import { Col, Row, Nav } from "react-bootstrap";
+import { Box, Image, Text } from "@chakra-ui/react";
 import {
   checkAuthentication,
   getJwtToken,
   getRoleFromToken,
   getUserNameFromToken,
 } from "@/utils/authUtils";
-import Image from "next/image";
 import Link from "next/link";
 import { UsersRound, Code2, PersonStanding, Sparkles } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -59,7 +59,7 @@ const Sidebar = () => {
         <Col className="text-center">
           {isClient && (
             <Image
-              className="rounded-circle"
+              className="rounded-circle mx-auto"
               src="/icon-site.png"
               alt=""
               width="50"
