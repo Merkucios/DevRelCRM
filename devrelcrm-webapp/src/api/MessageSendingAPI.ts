@@ -12,11 +12,30 @@ const api = axios.create( {
     baseURL: API_URL,
 });
 
+
 // Функция для отправки электронного письма
 export const sendEmail = async (emailData: EmailData): Promise<any> => {
     try {
       // Отправка POST-запроса на сервер уведомлений для отправки электронного письма
       const response = await api.post('/send-email', emailData);
+      return response.data;
+      
+    } catch (error: any) {
+      // Обработка ошибок при отправке письма
+      console.error('Ошибка отправки письма:', error);
+      throw error.response?.data;
+    }
+  };
+
+  // Функция для отправки электронного письма
+  export const sendEmailEvent = async (emailData: { event: string, email: string }): Promise<any> => {
+    try {
+      // Отправка POST-запроса на сервер уведомлений для отправки электронного письма
+      const response = await api.post('/send-event-email', emailData, {
+        headers: {
+          'Content-Type': 'application/json', // Указываем, что данные в формате JSON
+        },
+      });
       return response.data;
       
     } catch (error: any) {
