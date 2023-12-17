@@ -1,6 +1,6 @@
 "use client";
 import {
-    Box,
+  Box,
   Flex,
   Table,
   Tbody,
@@ -20,11 +20,18 @@ import CardBody from "@/components/Dashboard/Cards/Card/CardBody";
 import { tablesCandidateTableData } from "@/variables/general";
 import TablesTableCandidateRow from "@/components/Dashboard/Tables/TableCandidateRow";
 import PieChart from "@/components/Dashboard/Charts/PieChart";
+
 import { pieChartData, pieChartOptions } from "@/variables/charts";
+import GroupedBar from "@/components/Dashboard/Charts/GroupedBar";
 
 export default function DashboardLastEvents() {
   const textColor = useColorModeValue("gray.700", "white");
   const borderColor = useColorModeValue("gray.200", "gray.600");
+
+  const chartData = [44, 55, 13, 33];
+  const chartOptions = {
+    labels: ["Label 1", "Label 2", "Label 3", "Label 4"],
+  };
 
   return (
     <MaxWidthWrapper>
@@ -86,9 +93,19 @@ export default function DashboardLastEvents() {
             </CardBody>
           </Card>
         </Flex>
-        <Box minH="300px">
+        <Flex direction="column" mb="40px" p="28px 0px 0px 22px">
+            <Text color="gray.800" fontSize="lg" fontWeight="bold">
+              Голоса за лучшую категорию мероприятия 🎀
+            </Text>
+          </Flex>
+        <Flex>
+          <Box minH="300px" flex="1" mr={4}>
             <PieChart chartData={pieChartData} chartOptions={pieChartOptions} />
-        </Box>
+          </Box>
+          <Box minH="300px" flex="1" mr={4}>
+            <GroupedBar />
+          </Box>
+        </Flex>
       </ChakraProvider>
     </MaxWidthWrapper>
   );

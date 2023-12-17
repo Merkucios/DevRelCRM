@@ -82,29 +82,11 @@ export const barChartData = [
   };
   
   export const pieChartData = [
-    {
-      name: "Team A",
-      data: [813, 617, 431, 315, 204, 402],
-    },
+       23, 30, 61, 45, 35,
   ];
 
   export const pieChartOptions : ApexOptions  = {
-      chart: {
-        type: 'pie',
-      },
-      tooltip: {
-        theme: "dark",
-      },
-      labels: ['Team A', 'Team B', 'Team C', 'Team D', 'Team E'],
-      responsive: [{
-        breakpoint: 480,
-        options: {
-          chart: {
-            width: 200
-          },
-          legend: {
-            position: 'bottom'
-          }
-        }
-      }]
+      labels: ['Спикеры', 'Мероприятие', 'Развлечения', 'Хакатон', 'Возможность трудоустройства'],
   };
+
+  
