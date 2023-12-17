@@ -39,8 +39,11 @@ class BarChart extends Component<BarChartProps, BarChartState> {
         width="100%"
         height="100%"
       />
+      
     );
+    console.log(this.state.chartData, this.state.chartOptions)
   }
 }
+
 
 export default BarChart;

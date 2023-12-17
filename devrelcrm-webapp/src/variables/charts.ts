@@ -3,7 +3,7 @@ import { ApexOptions } from "apexcharts";
 export const barChartData = [
     {
       name: "Кол-во пользователей",
-      data: [813, 617, 431, 315, 204],
+      data: [813, 617, 431, 315, 204, 402],
     },
   ];
   
@@ -24,7 +24,7 @@ export const barChartData = [
               color: "#82878d", 
             },
           },
-      categories: ["Вконтакте", "Телеграм", "Ютуб", "Хабр", "HeadHunter"],
+      categories: ["Вконтакте", "Телеграм", "Ютуб", "Хабр", "HeadHunter", "Codenrock"],
       labels: {
         style: {
           colors: "#343639",
@@ -81,88 +81,30 @@ export const barChartData = [
     ],
   };
   
-  export const lineChartData = [
+  export const pieChartData = [
     {
-      name: "Mobile apps",
-      data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
-    },
-    {
-      name: "Websites",
-      data: [30, 90, 40, 140, 290, 290, 340, 230, 400],
+      name: "Team A",
+      data: [813, 617, 431, 315, 204, 402],
     },
   ];
-  
-  export const lineChartOptions = {
-    chart: {
-      toolbar: {
-        show: false,
+
+  export const pieChartOptions : ApexOptions  = {
+      chart: {
+        type: 'pie',
       },
-    },
-    tooltip: {
-      theme: "dark",
-    },
-    dataLabels: {
-      enabled: false,
-    },
-    stroke: {
-      curve: "smooth",
-    },
-    xaxis: {
-      type: "datetime",
-      categories: [
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Jun",
-        "Jul",
-        "Aug",
-        "Sep",
-        "Oct",
-        "Nov",
-        "Dec",
-      ],
-      axisTicks: {
-        show: false
+      tooltip: {
+        theme: "dark",
       },
-      axisBorder: {
-        show: false,
-      },
-      labels: {
-        style: {
-          colors: "#fff",
-          fontSize: "12px",
-        },
-      },
-    },
-    yaxis: {
-      labels: {
-        style: {
-          colors: "#fff",
-          fontSize: "12px",
-        },
-      },
-    },
-    legend: {
-      show: false,
-    },
-    grid: {
-      strokeDashArray: 5,
-    },
-    fill: {
-      type: "gradient",
-      gradient: {
-        shade: "light",
-        type: "vertical",
-        shadeIntensity: 0.5,
-        inverseColors: true,
-        opacityFrom: 0.8,
-        opacityTo: 0,
-        stops: [],
-      },
-      colors: ["#fff", "#3182CE"],
-    },
-    colors: ["#fff", "#3182CE"],
+      labels: ['Team A', 'Team B', 'Team C', 'Team D', 'Team E'],
+      responsive: [{
+        breakpoint: 480,
+        options: {
+          chart: {
+            width: 200
+          },
+          legend: {
+            position: 'bottom'
+          }
+        }
+      }]
   };
-  

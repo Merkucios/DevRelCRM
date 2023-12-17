@@ -1,5 +1,6 @@
 "use client";
 import {
+    Box,
   Flex,
   Table,
   Tbody,
@@ -9,38 +10,30 @@ import {
   Tr,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { useRouter } from 'next/navigation';
+
+import MaxWidthWrapper from "@/components/Main/MaxWidthWrapper";
+import { ChakraProvider } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import Card from "@/components/Dashboard/Cards/Card/Card";
 import CardHeader from "@/components/Dashboard/Cards/Card/CardHeader";
 import CardBody from "@/components/Dashboard/Cards/Card/CardBody";
-import { ChakraProvider } from "@chakra-ui/react";
-import MaxWidthWrapper from "@/components/Main/MaxWidthWrapper";
-import { tablesUserTableData } from "@/variables/general";
-import TablesTableUserRow from "@/components/Dashboard/Tables/TableUserRow";
+import { tablesCandidateTableData } from "@/variables/general";
+import TablesTableCandidateRow from "@/components/Dashboard/Tables/TableCandidateRow";
+import PieChart from "@/components/Dashboard/Charts/PieChart";
+import { pieChartData, pieChartOptions } from "@/variables/charts";
 
-export default function DashboardUsers() {
-  const router = useRouter();
+export default function DashboardLastEvents() {
   const textColor = useColorModeValue("gray.700", "white");
   const borderColor = useColorModeValue("gray.200", "gray.600");
-  const handleEditClick = (name : string) => {
-    console.log("row.name")
-    router.push(`/edit/${name}`);
-  };
-
-  
-  useEffect(() => {
-  }, [router]);
-  
 
   return (
     <MaxWidthWrapper>
       <ChakraProvider>
         <Flex direction="column" pt={{ base: "120px", md: "75px" }}>
           <Card overflowX={{ sm: "scroll", xl: "hidden" }} pb="0px">
-            <CardHeader p="6px 0px 22px 0px">
+            <CardHeader>
               <Text fontSize="xl" color={textColor} fontWeight="bold">
-                Страница пользователей
+                Кандидаты с ивентов
               </Text>
             </CardHeader>
             <CardBody>
@@ -54,36 +47,37 @@ export default function DashboardUsers() {
                       Уровень
                     </Th>
                     <Th borderColor={borderColor} color="gray.400">
-                      Специализация
+                      Последнее мероприятие
                     </Th>
                     <Th borderColor={borderColor} color="gray.400">
-                      Статус
+                      Занятое место
                     </Th>
                     <Th borderColor={borderColor} color="gray.400">
                       Контакты
                     </Th>
                     <Th borderColor={borderColor} color="gray.400">
-                      Добавлен
+                      Репозитории
                     </Th>
-                    <Th borderColor={borderColor}></Th>
+                    <Th borderColor={borderColor} color="gray.400">
+                      Дата добавления
+                    </Th>
                   </Tr>
                 </Thead>
                 <Tbody>
-                  {tablesUserTableData.map((row, index, arr) => {
+                  {tablesCandidateTableData.map((row, index, arr) => {
                     return (
-                      <TablesTableUserRow
+                      <TablesTableCandidateRow
                         name={row.name}
                         logo={row.logo.src}
                         email={row.email}
                         level={row.level}
-                        subdomain={row.subdomain}
-                        domain={row.domain}
-                        status={row.status}
+                        lastEvent={row.lastEvent}
+                        place={row.place as string}
                         contact={row.contact}
+                        git={row.git}
                         date={row.date}
                         isLast={index === arr.length - 1 ? true : false}
                         key={index}
-                        onEditClick={() => handleEditClick(row.name)}
                       />
                     );
                   })}
@@ -92,6 +86,9 @@ export default function DashboardUsers() {
             </CardBody>
           </Card>
         </Flex>
+        <Box minH="300px">
+            <PieChart chartData={pieChartData} chartOptions={pieChartOptions} />
+        </Box>
       </ChakraProvider>
     </MaxWidthWrapper>
   );

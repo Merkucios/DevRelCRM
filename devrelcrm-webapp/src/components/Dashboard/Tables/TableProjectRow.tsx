@@ -12,12 +12,9 @@ Avatar,
   Button,
   useColorModeValue,
 } from "@chakra-ui/react";
-import MaxWidthWrapper from "@/components/Main/MaxWidthWrapper";
-import { ChakraProvider } from "@chakra-ui/react";
 import { ChevronDownCircle } from "lucide-react";
-import { ElementType } from "react";
 
-interface TableProjectRowProps {
+export interface TableProjectRowProps {
   logo: string;
   name: string;
   status: string;

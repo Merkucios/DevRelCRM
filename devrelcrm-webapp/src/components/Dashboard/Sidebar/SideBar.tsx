@@ -9,7 +9,7 @@ import {
   getUserNameFromToken,
 } from "@/utils/authUtils";
 import Link from "next/link";
-import { UsersRound, Code2, PersonStanding, Sparkles } from "lucide-react";
+import { UsersRound, Sparkles, Speech, CalendarCheck2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import styles from "./SideBar.module.css";
 
@@ -21,15 +21,21 @@ const menuItems = [
         path: "/dashboard/users",
         icon: <UsersRound />,
       },
-    ],
-  },
-  {
-    list: [
       {
         title: "Проекты",
         path: "/dashboard/projects",
         icon: <Sparkles />,
       },
+      // {
+      //   title: "HR-метрики",
+      //   path: "/dashboard/hr",
+      //   icon: <Speech />,
+      // },
+      {
+        title: "Прошедшие ивенты",
+        path: "/dashboard/last-events",
+        icon: <CalendarCheck2 />,
+      }
     ],
   },
 ];
@@ -78,7 +84,7 @@ const Sidebar = () => {
           <Nav>
             {cat.list.map((item) => (
               <Nav.Item key={item.title}>
-                <Link className="nav-link" href={item.path}>
+                <Link className="nav-link d-flex" href={item.path}>
                   {item.icon} {item.title}
                 </Link>
               </Nav.Item>
