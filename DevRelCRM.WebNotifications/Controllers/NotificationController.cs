@@ -73,7 +73,7 @@ namespace DevRelCRM.WebNotifications.Controllers
         [HttpPost("send-welcome-email")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> SendEmailUsingTemplate(WelcomeMailModel welcomeMail)
+        public async Task<IActionResult> SendWelcomeEmail(WelcomeMailModel welcomeMail)
         {
             try
             {
@@ -102,5 +102,30 @@ namespace DevRelCRM.WebNotifications.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Произошла ошибка. Письмо не отправлено.");
             }
         }
+
+        [HttpPost("send-event-email")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> SendEventEmail(EventMailModel eventMail)
+        {
+                MailData mailData = new MailData(
+                    new List<string> { eventMail.Email },
+                    "Приглашаем вас к нам на огонёк! 🔥",
+                    _emailService.GetEmailTemplate(TypeTemplateConstraints.EVENT_TEMPLATE, eventMail)
+                );
+
+                bool result = await _emailService.SendEmailAsync(mailData, new CancellationToken());
+
+                if (result)
+                {
+                    Log.Information("Сообщение с использованием шаблона успешно отправлено");
+                    return StatusCode(StatusCodes.Status200OK, "Сообщение с использованием шаблона успешно отправлено");
+                }
+                else
+                {
+                    Log.Error("Произошла ошибка. Письмо не отправлено.");
+                    return StatusCode(StatusCodes.Status500InternalServerError, "Произошла ошибка. Письмо не отправлено.");
+                }
+            }
+        }
     }
-}
