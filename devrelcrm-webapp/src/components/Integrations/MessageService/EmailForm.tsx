@@ -2,7 +2,11 @@
 
 import { useState, ChangeEvent, FormEvent } from "react";
 import { Form, Button, Dropdown, DropdownProps } from "react-bootstrap";
-import { sendEmail, sendEmailWithAttachment, sendEmailEvent } from "@/api/MessageSendingAPI";
+import {
+  sendEmail,
+  sendEmailWithAttachment,
+  sendEmailEvent,
+} from "@/api/MessageSendingAPI";
 import { EmailData } from "@/data/MessageSending/EmailData";
 import AdditionalField from "./AdditionalFormField";
 
@@ -15,7 +19,7 @@ const EmailForm = () => {
   }>({
     "Получатель скрытой копии": false,
     "Получатель копии": false,
-    "Отправитель": false,
+    Отправитель: false,
     "Имя отправителя": false,
     "Адрес для ответа": false,
     "Имя для ответа": false,
@@ -34,10 +38,9 @@ const EmailForm = () => {
     attachments: new FormData(),
   });
 
-
   const emailDataMsg = {
     event: "DevRel Hack 2.0",
-    email: "hydra1337channel@gmail.com"
+    email: "hydra1337channel@gmail.com",
   };
 
   // Состояние для отслеживания отправки сообщения
@@ -55,7 +58,6 @@ const EmailForm = () => {
       });
     }
   };
-
 
   // Вот это анекдот полный но я уже в отчаянии
   const handleFieldChange = (field: string, value: string) => {
@@ -118,7 +120,6 @@ const EmailForm = () => {
     }
   };
 
-  
   // Функция обновления данных формы
   // Обобщение T является подтипом объединения ключей типа EmailData -> T одно из полей EmailData
   const updateFormData = <T extends keyof EmailData>(
@@ -244,26 +245,26 @@ const EmailForm = () => {
           {sending ? "Отправка..." : "Отправить"}
         </Button>
         <Button
-  className="mt-2 ms-2"
-  variant="success"
-  onClick={async () => {
-    try {
-      // Устанавливаем флаг отправки в true
-      setSending(true);
+          className="mt-2 ms-2"
+          variant="success"
+          onClick={async () => {
+            try {
+              // Устанавливаем флаг отправки в true
+              setSending(true);
 
-      await sendEmailEvent(emailDataMsg);
+              await sendEmailEvent(emailDataMsg);
 
-      console.log("Приглашение успешно отправлено!!!");
-    } catch (error) {
-      console.error("Произошла ошибка отправки приглашения:", error);
-    } finally {
-      setSending(false);
-    }
-  }}
-  disabled={sending}
->
-  {sending ? "Отправка..." : "Отправить приглашение"}
-</Button>
+              console.log("Приглашение успешно отправлено!!!");
+            } catch (error) {
+              console.error("Произошла ошибка отправки приглашения:", error);
+            } finally {
+              setSending(false);
+            }
+          }}
+          disabled={sending}
+        >
+          {sending ? "Отправка..." : "Отправить приглашение"}
+        </Button>
       </Form>
     </div>
   );
