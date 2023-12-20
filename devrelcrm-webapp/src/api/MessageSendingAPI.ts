@@ -12,27 +12,63 @@ const api = axios.create( {
     baseURL: API_URL,
 });
 
+
 // Функция для отправки электронного письма
 export const sendEmail = async (emailData: EmailData): Promise<any> => {
     try {
       // Отправка POST-запроса на сервер уведомлений для отправки электронного письма
       const response = await api.post('/send-email', emailData);
       return response.data;
+      
     } catch (error: any) {
       // Обработка ошибок при отправке письма
       console.error('Ошибка отправки письма:', error);
-      throw error.response.data;
+      throw error.response?.data;
+    }
+  };
+
+  // Функция для отправки электронного письма
+  export const sendEmailEvent = async (emailData: { event: string, email: string }): Promise<any> => {
+    try {
+      // Отправка POST-запроса на сервер уведомлений для отправки электронного письма
+      const response = await api.post('/send-event-email', emailData, {
+        headers: {
+          'Content-Type': 'application/json', // Указываем, что данные в формате JSON
+        },
+      });
+      return response.data;
+      
+    } catch (error: any) {
+      // Обработка ошибок при отправке письма
+      console.error('Ошибка отправки письма:', error);
+      throw error.response?.data;
     }
   };
   
 // Функция для отправки электронного письма с вложением
   export const sendEmailWithAttachment = async (emailData: EmailData ): Promise<any> => {
     try {
+      console.log(emailData)
       // Создаем новый объект FormData для формирования данных для отправки
       const formData = new FormData();
 
       // Добавляем в FormData получателей, тему и тело письма
-      formData.append('to', emailData.to.join(','));
+      ['to', 'bcc', 'cc'].forEach((recipientType) => {
+        const recipients = emailData[recipientType as keyof EmailData];
+      
+        if (Array.isArray(recipients)) {
+          for (let i = 0; i < recipients.length; i++) {
+            formData.append(`${recipientType}[]`, recipients[i]);
+          }
+        }
+      });
+      
+      formData.append('from', emailData.from ?? "");
+      formData.append('displayName', emailData.displayName ?? "");
+      formData.append('replyTo', emailData.replyTo ?? "");
+      formData.append('replyToName', emailData.replyToName ?? "");
+
+
       formData.append('subject', emailData.subject);
       formData.append('body', emailData.body ?? "");
 
@@ -57,6 +93,6 @@ export const sendEmail = async (emailData: EmailData): Promise<any> => {
     } catch (error: any) {
       // Обработка ошибок при отправке письма с вложением
       console.error('Ошибка отправки письма с вложением:', error);
-      throw error.response.data;
+      throw error.response?.data;
     }
 };

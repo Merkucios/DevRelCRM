@@ -110,10 +110,10 @@ namespace DevRelCRM.Infrastructure.Services.SMTPService
         public string LoadTemplate(string emailTemplate)
         {
             // Получаем текущую директорию проекта (WebNotifications)
-            string baseDir = Directory.GetCurrentDirectory();
+            string currentDir = Directory.GetCurrentDirectory();
 
             // Получаем директорию выше текущей (DevRelCRM)
-            string topDir = Directory.GetParent(baseDir).ToString();
+            string topDir = Directory.GetParent(currentDir).ToString();
 
             // Формируем путь к директории с шаблонами
             string templateDir = Path.Combine(topDir, "DevRelCRM.Infrastructure", "Services", "SMTPService", "WebTemplates");

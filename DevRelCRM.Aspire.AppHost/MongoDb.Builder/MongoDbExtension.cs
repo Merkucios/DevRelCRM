@@ -13,7 +13,7 @@ namespace DevRelCRM.Aspire.AppHost.MongoDb.Builder
             var mongo = new MongoDbResource(name, password);
             return builder.AddResource(mongo)
                           .WithAnnotation(new ManifestPublishingCallbackAnnotation(WriteMongoDBContainerToManifest))
-                          .WithAnnotation(new ServiceBindingAnnotation(ProtocolType.Tcp, containerPort: 27017))
+                          .WithAnnotation(new ServiceBindingAnnotation(ProtocolType.Tcp, port: 27017, containerPort: 27017))
                           .WithAnnotation(new ContainerImageAnnotation { Image = "mongo", Tag = "latest" });
         }
 

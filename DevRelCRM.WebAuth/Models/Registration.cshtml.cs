@@ -72,7 +72,6 @@ namespace DevRelCRM.WebAuth.Pages
                         }
                     }
 
-                    Task.Delay(3000).Wait();
                     return Redirect("http://localhost:3000/");
                 }
 

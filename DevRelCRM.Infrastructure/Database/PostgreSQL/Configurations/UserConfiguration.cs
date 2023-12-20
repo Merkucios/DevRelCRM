@@ -12,8 +12,8 @@ namespace DevRelCRM.Infrastructure.Database.PostgreSQL.Configurations
         {
             builder.HasKey(t => t.UserId);
             builder.HasIndex(t => t.UserId).IsUnique();
-            builder.Property(t => t.Name).HasMaxLength(100).IsRequired();
             builder.Property(t => t.Surname).HasMaxLength(150).IsRequired();
+            builder.Property(t => t.Name).HasMaxLength(100).IsRequired();
             builder.Property(t => t.Patronym).HasMaxLength(100);
             builder.Property(t => t.Gender).IsRequired();
             builder.Property(t => t.NickName).HasMaxLength(100).IsRequired();
@@ -23,7 +23,6 @@ namespace DevRelCRM.Infrastructure.Database.PostgreSQL.Configurations
             builder.Property(t => t.Password).HasMaxLength(255).IsRequired(); 
             builder.Property(t => t.Role).HasMaxLength(50); 
             builder.Property(t => t.DateCreated).IsRequired();
-
         }
     }
 }

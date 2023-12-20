@@ -13,6 +13,7 @@ var authDb = postgres.AddDatabase("AuthDb");
 var mongo = builder.AddMongoDBContainer("mongodb")
     .WithMongoExpress();
 
+
 builder
     .AddNpmApp("NextFrontend", "../devrelcrm-webapp")
     .WithServiceBinding(scheme: "http", hostPort: 3000); 
@@ -26,6 +27,10 @@ var WebNotificationsAPI =
     .AddProject<Projects.DevRelCRM_WebNotificationsAPI>("devrelcrm.webnotifications")
     .WithLaunchProfile("https");
 
+builder.
+    AddProject<Projects.DevRelCRM_ParsersAPI>("devrelcrm.parsersapi")
+    .WithLaunchProfile("https")
+    .WithReference(mongo);
 
 builder
     .AddProject<Projects.DevRelCRM_WebAuth>("devrelcrm.webauth")

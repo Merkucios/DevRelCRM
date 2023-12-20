@@ -16,6 +16,17 @@ const UserProgrammerBar = () => {
           Git репозитории
         </Link>
       </Nav.Item>
+
+      <Nav.Item className="d-flex mx-2">
+        <Icons.letter className="img-fluid" />
+        <Link
+          href="/message-sending"
+          className="nav-link link-dark p-2 
+            link-body-emphasis link-offset-1 link-underline-opacity-25 link-underline-opacity-75-hover"
+        >
+          Рассылка писем
+        </Link>
+      </Nav.Item>
     </Nav>
   );
 };

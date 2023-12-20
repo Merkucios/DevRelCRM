@@ -15,7 +15,6 @@ const UserSideBar = () => {
     if(authCheck){
         const token = getJwtToken();
         const role = getRoleFromToken(token || undefined);
-        console.log("User Role:", role);
         setUserRole(role);
     }
   }, []);
